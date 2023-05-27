@@ -1,6 +1,6 @@
 package br.com.projeto.mercado.models;
 
-import br.com.projeto.mercado.models.enums.RoleType;
+import br.com.projeto.mercado.models.enums.TipoGrupo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,21 +16,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TB_ROLES")
-@SequenceGenerator(name = "seq_role", sequenceName = "seq_role", initialValue = 1, allocationSize = 1)
-public class Role implements GrantedAuthority, Serializable {
+@Table(name = "TB_GRUPOS")
+@SequenceGenerator(name = "seq_grupo", sequenceName = "seq_grupo", initialValue = 1, allocationSize = 1)
+public class Grupo implements GrantedAuthority, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role")
-    private Long roleId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_grupo")
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true, length = 30)
-    private RoleType roleName;
+    private TipoGrupo nome;
 
     @Override
     @JsonIgnore
     public String getAuthority() {
-        return this.roleName.toString();
+        return this.nome.toString();
     }
 }

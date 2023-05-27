@@ -1,10 +1,10 @@
-package br.com.projeto.mercado.controllers;
+package br.com.projeto.mercado.api.controllers;
 
-import br.com.projeto.mercado.dto.JwtDto;
-import br.com.projeto.mercado.dto.LoginDto;
-import br.com.projeto.mercado.dto.UserDto;
+import br.com.projeto.mercado.api.dto.JwtDto;
+import br.com.projeto.mercado.api.dto.LoginDto;
+import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.security.jwt.JwtProvider;
-import br.com.projeto.mercado.service.UserService;
+import br.com.projeto.mercado.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/auth")
-public class AuthenticationController {
+public class AutenticacaoController {
 
     private final PasswordEncoder passwordEncoder;
 
@@ -31,11 +31,11 @@ public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final UserService userService;
+    private final UsuarioService usuarioService;
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(userDto));
     }
 
     @PostMapping("/login")
@@ -49,6 +49,6 @@ public class AuthenticationController {
 
     @GetMapping("/resetpassword/{email}")
     public ResponseEntity<UserDto> resetPassword(@PathVariable("email") String email) {
-        return ResponseEntity.ok(userService.resetPassword(email));
+        return ResponseEntity.ok(usuarioService.resetPassword(email));
     }
 }

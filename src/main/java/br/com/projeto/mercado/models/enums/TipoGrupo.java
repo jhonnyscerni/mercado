@@ -1,6 +1,6 @@
 package br.com.projeto.mercado.models.enums;
 
-public enum RoleType {
+public enum TipoGrupo {
     ROLE_ADMIN,
     ROLE_VENDOR,
     ROLE_BUYER;

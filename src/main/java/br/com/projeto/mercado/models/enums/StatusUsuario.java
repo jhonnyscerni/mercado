@@ -1,6 +1,6 @@
 package br.com.projeto.mercado.models.enums;
 
-public enum UserStatus {
+public enum StatusUsuario {
     ACTIVE,
     BLOCKED;
 }

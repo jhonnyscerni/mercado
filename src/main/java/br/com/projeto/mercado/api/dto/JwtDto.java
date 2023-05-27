@@ -1,4 +1,4 @@
-package br.com.projeto.mercado.dto;
+package br.com.projeto.mercado.api.dto;
 
 import lombok.Data;
 import lombok.NonNull;

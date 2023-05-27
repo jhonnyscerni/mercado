@@ -1,19 +1,23 @@
 package br.com.projeto.mercado.service.impl;
 
 
-import br.com.projeto.mercado.dto.UserDto;
-import br.com.projeto.mercado.models.Role;
-import br.com.projeto.mercado.models.User;
-import br.com.projeto.mercado.models.enums.RoleType;
+import br.com.projeto.mercado.api.dto.UserDto;
+import br.com.projeto.mercado.api.filter.UsuarioFiltro;
+import br.com.projeto.mercado.models.Grupo;
+import br.com.projeto.mercado.models.Usuario;
+import br.com.projeto.mercado.models.enums.TipoGrupo;
 import br.com.projeto.mercado.models.exceptions.ConflictException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
-import br.com.projeto.mercado.models.mapper.UserMapper;
-import br.com.projeto.mercado.repositories.UserRepository;
-import br.com.projeto.mercado.service.RoleService;
-import br.com.projeto.mercado.service.UserService;
+import br.com.projeto.mercado.models.mapper.UsuarioMapper;
+import br.com.projeto.mercado.repositories.UsuarioRepository;
+import br.com.projeto.mercado.repositories.specs.UsuarioSpecification;
+import br.com.projeto.mercado.service.GrupoService;
+import br.com.projeto.mercado.service.UsuarioService;
 import br.com.projeto.mercado.service.email.EmailService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,22 +26,22 @@ import java.util.UUID;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UsuarioServiceImpl implements UsuarioService {
 
-    private final UserRepository userRepository;
-    private final RoleService roleService;
-    private final UserMapper userMapper;
+    private final UsuarioRepository usuarioRepository;
+    private final GrupoService grupoService;
+    private final UsuarioMapper usuarioMapper;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
     @Override
     public boolean existsByUsername(String username) {
-        return userRepository.existsByUsername(username);
+        return usuarioRepository.existsByUsername(username);
     }
 
     @Override
     public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
+        return usuarioRepository.existsByEmail(email);
     }
 
     @Override
@@ -55,20 +59,20 @@ public class UserServiceImpl implements UserService {
         }
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Role role = roleService.findByRoleName(RoleType.ROLE_VENDOR);
+        Grupo grupo = grupoService.findByRoleName(TipoGrupo.ROLE_VENDOR);
 
-        User user = userMapper.toEntity(userDto);
-        user.getRoles().add(role);
-        user = userRepository.save(user);
-        log.debug("POST registerUser userId saved {} ", user.getId());
-        log.info("User saved successfully userId {} ", user.getId());
+        Usuario usuario = usuarioMapper.toEntity(userDto);
+        usuario.getGrupos().add(grupo);
+        usuario = usuarioRepository.save(usuario);
+        log.debug("POST registerUser userId saved {} ", usuario.getId());
+        log.info("User saved successfully userId {} ", usuario.getId());
 
-        return userMapper.toModel(user);
+        return usuarioMapper.toModel(usuario);
 
     }
 
-    public User buscarOuFalharPorEmail(String email) {
-        return userRepository.findByEmail(email)
+    public Usuario buscarOuFalharPorEmail(String email) {
+        return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Não existe um cadastro de usuário com email %s", email)));
     }
@@ -76,16 +80,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto resetPassword(String email) {
 
-        User user = buscarOuFalharPorEmail(email);
+        Usuario usuario = buscarOuFalharPorEmail(email);
         String password = UUID.randomUUID().toString();
-        user.setPassword(encodePassword(password));
-        user = userRepository.save(user);
+        usuario.setPassword(encodePassword(password));
+        usuario = usuarioRepository.save(usuario);
         log.info("New user password: " + password);
 
-        emailService.sendNewPasswordEmail(user);
+        emailService.sendNewPasswordEmail(usuario);
         log.info("Mail send successfully new password: " + password);
 
-        return userMapper.toModel(user);
+        return usuarioMapper.toModel(usuario);
+    }
+
+    @Override
+    public Page<UserDto> search(UsuarioFiltro filter, Pageable pageable) {
+        log.debug("GET UserFilter filter received {} ", filter.toString());
+        return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toModel);
+
     }
 
     private String encodePassword(String password) {

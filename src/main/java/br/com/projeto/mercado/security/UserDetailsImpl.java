@@ -1,6 +1,6 @@
 package br.com.projeto.mercado.security;
 
-import br.com.projeto.mercado.models.User;
+import br.com.projeto.mercado.models.Usuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,19 +24,19 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserDetailsImpl build(User userModel) {
-        List<GrantedAuthority> authorities = userModel.getRoles().stream()
+    public static UserDetailsImpl build(Usuario usuarioModel) {
+        List<GrantedAuthority> authorities = usuarioModel.getGrupos().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                 .collect(Collectors.toList());
         // Parametros Padrões
         //return new User(usuario.getUsername(), usuario.getPassword(), usuario.getAuthorities());
         // Incluir outros parametros
         return new UserDetailsImpl(
-                userModel.getId(),
-                userModel.getFullName(),
-                userModel.getUsername(),
-                userModel.getPassword(),
-                userModel.getEmail(),
+                usuarioModel.getId(),
+                usuarioModel.getNomeFantasia(),
+                usuarioModel.getUsername(),
+                usuarioModel.getPassword(),
+                usuarioModel.getEmail(),
                 authorities);
     }
 

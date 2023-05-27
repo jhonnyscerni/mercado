@@ -1,6 +1,6 @@
 package br.com.projeto.mercado.service.email;
 
-import br.com.projeto.mercado.models.User;
+import br.com.projeto.mercado.models.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +10,13 @@ public class EmailService {
     @Autowired
     private EnvioEmailService envioEmailService;
 
-    public void sendNewPasswordEmail(User user) {
+    public void sendNewPasswordEmail(Usuario usuario) {
         EnvioEmailService.Mensagem mensagem = EnvioEmailService.Mensagem.builder()
-                .assunto(user.getFullName() + " - Recuperação de senha")
+                .assunto(usuario.getNomeFantasia() + " - Recuperação de senha")
                 .corpo("modelo-recuperar-senha.html")
-                .variavel("usuario", user)
-                .variavel("novaSenha", user.getPassword())
-                .destinatario(user.getEmail())
+                .variavel("usuario", usuario)
+                .variavel("novaSenha", usuario.getPassword())
+                .destinatario(usuario.getEmail())
                 .build();
         envioEmailService.enviar(mensagem, SmtpTipoEnvioEmail.SIMPLES);
     }
