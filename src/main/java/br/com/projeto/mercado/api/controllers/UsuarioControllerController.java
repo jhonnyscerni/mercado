@@ -16,7 +16,8 @@ import javax.validation.Valid;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UsuarioControllerController {
 
     private final UsuarioService usuarioService;
