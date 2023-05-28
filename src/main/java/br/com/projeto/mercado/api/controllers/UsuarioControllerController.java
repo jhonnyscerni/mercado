@@ -2,6 +2,8 @@ package br.com.projeto.mercado.api.controllers;
 
 import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.api.filter.UsuarioFiltro;
+import br.com.projeto.mercado.api.request.UserRequest;
+import br.com.projeto.mercado.api.response.UserResponse;
 import br.com.projeto.mercado.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,8 +32,8 @@ public class UsuarioControllerController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registrarUsuario(@RequestBody @Valid UserDto userDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(userDto));
+    public ResponseEntity<UserResponse> registrarUsuario(@RequestBody @Valid UserRequest userRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(userRequest));
     }
 
     @DeleteMapping("/{id}")
