@@ -17,7 +17,6 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class UsuarioControllerController {
 
     private final UsuarioService usuarioService;
@@ -25,7 +24,7 @@ public class UsuarioControllerController {
 
     @GetMapping
     public ResponseEntity<Page<UserDto>> pesquisar(UsuarioFiltro filter,
-                                                @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable pageable) {
+                                                   @PageableDefault(size = 10) Pageable pageable) {
         return ResponseEntity.ok().body(usuarioService.search(filter, pageable));
     }
 
