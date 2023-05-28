@@ -3,6 +3,8 @@ package br.com.projeto.mercado.service.impl;
 
 import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.api.filter.UsuarioFiltro;
+import br.com.projeto.mercado.api.request.UserRequest;
+import br.com.projeto.mercado.api.response.UserResponse;
 import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.Usuario;
 import br.com.projeto.mercado.models.enums.TipoGrupo;
@@ -75,6 +77,30 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return usuarioMapper.toModel(usuario);
 
+    }
+
+    @Override
+    public UserResponse save(UserRequest userRequest) {
+        log.debug("POST registerUser userDto received {} ", userRequest.toString());
+        if (existsByUsername(userRequest.getUsername())) {
+            log.warn("Username {} is Already Taken ", userRequest.getUsername());
+            throw new ConflictException(
+                    String.format("Error: Username is Already Taken! %s ", userRequest.getUsername()));
+        }
+        if (existsByEmail(userRequest.getEmail())) {
+            log.warn("Email {} is Already Taken ", userRequest.getEmail());
+            throw new ConflictException(
+                    String.format("\"Error: Email is Already Taken! %s ", userRequest.getEmail()));
+        }
+
+        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        Usuario usuario = usuarioMapper.resquestToEntity(userRequest);
+        usuario = usuarioRepository.save(usuario);
+        log.debug("POST registerUser userId saved {} ", usuario.getId());
+        log.info("User saved successfully userId {} ", usuario.getId());
+
+        return usuarioMapper.toResponse(usuario);
     }
 
     public Usuario buscarOuFalharPorEmail(String email) {
