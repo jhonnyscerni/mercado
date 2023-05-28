@@ -168,9 +168,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Page<UserDto> search(UsuarioFiltro filter, Pageable pageable) {
+    public Page<UserResponse> search(UsuarioFiltro filter, Pageable pageable) {
         log.debug("GET UserFilter filter received {} ", filter.toString());
-        return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toModel);
+        return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toResponse);
 
     }
 

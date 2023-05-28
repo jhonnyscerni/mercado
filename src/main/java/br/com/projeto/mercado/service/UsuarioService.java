@@ -28,7 +28,7 @@ public interface UsuarioService {
 
     UserDto resetPassword(String email);
 
-    Page<UserDto> search(UsuarioFiltro filter, Pageable pageable);
+    Page<UserResponse> search(UsuarioFiltro filter, Pageable pageable);
 
     void delete(Long id);
 }
