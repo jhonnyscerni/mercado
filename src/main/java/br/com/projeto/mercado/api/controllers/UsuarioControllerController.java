@@ -26,7 +26,7 @@ public class UsuarioControllerController {
 
 
     @GetMapping
-    public ResponseEntity<Page<UserDto>> pesquisar(UsuarioFiltro filter,
+    public ResponseEntity<Page<UserResponse>> pesquisar(UsuarioFiltro filter,
                                                    @PageableDefault(size = 10) Pageable pageable) {
         return ResponseEntity.ok().body(usuarioService.search(filter, pageable));
     }
