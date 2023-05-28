@@ -8,6 +8,10 @@ public class EntityNotFoundException extends BusinessException {
         super(message);
     }
 
+    public EntityNotFoundException(Long id) {
+        this(String.format("Não existe um cadastro com código %d", id));
+    }
+
     public EntityNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }

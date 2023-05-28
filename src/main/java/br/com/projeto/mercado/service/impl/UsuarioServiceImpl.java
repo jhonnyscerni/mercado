@@ -7,6 +7,7 @@ import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.Usuario;
 import br.com.projeto.mercado.models.enums.TipoGrupo;
 import br.com.projeto.mercado.models.exceptions.ConflictException;
+import br.com.projeto.mercado.models.exceptions.EntityInUseException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.UsuarioMapper;
 import br.com.projeto.mercado.repositories.UsuarioRepository;
@@ -16,6 +17,8 @@ import br.com.projeto.mercado.service.UsuarioService;
 import br.com.projeto.mercado.service.email.EmailService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +30,9 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
+
+    private static final String MSG_USUARIO_EM_USO
+            = "Usuário de código %d não pode ser removida, pois está em uso";
 
     private final UsuarioRepository usuarioRepository;
     private final GrupoService grupoService;
@@ -97,6 +103,19 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.debug("GET UserFilter filter received {} ", filter.toString());
         return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toModel);
 
+    }
+
+    @Override
+    public void delete(Long usuarioId) {
+        try {
+            usuarioRepository.deleteById(usuarioId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(usuarioId);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityInUseException(
+                    String.format(MSG_USUARIO_EM_USO, usuarioId));
+        }
     }
 
     private String encodePassword(String password) {
