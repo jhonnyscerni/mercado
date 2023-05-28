@@ -6,6 +6,7 @@ import br.com.projeto.mercado.api.response.UserResponse;
 import br.com.projeto.mercado.models.Usuario;
 import br.com.projeto.mercado.utils.ModelMapper;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioMapper {
@@ -17,4 +18,6 @@ public interface UsuarioMapper {
     UserResponse toResponse(Usuario entity);
 
     Usuario resquestToEntity(UserRequest model);
+
+    void update(@MappingTarget Usuario user, UserRequest userRequest);
 }

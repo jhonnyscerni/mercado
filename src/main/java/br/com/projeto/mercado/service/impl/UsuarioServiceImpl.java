@@ -53,6 +53,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public void passwordNotEquals(Usuario user, UserRequest userRequest) {
+        log.debug("Verify password {} ", user.getId());
+        if (!user.getPassword().equals(userRequest.getPassword())) {
+            userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        }
+    }
+
+    @Override
     public UserDto saveUser(UserDto userDto) {
         log.debug("POST registerUser userDto received {} ", userDto.toString());
         if (existsByUsername(userDto.getUsername())) {
@@ -81,7 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UserResponse save(UserRequest userRequest) {
-        log.debug("POST registerUser userDto received {} ", userRequest.toString());
+        log.debug("POST UserRequest userRequest received {} ", userRequest.toString());
         if (existsByUsername(userRequest.getUsername())) {
             log.warn("Username {} is Already Taken ", userRequest.getUsername());
             throw new ConflictException(
@@ -97,10 +105,45 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         Usuario usuario = usuarioMapper.resquestToEntity(userRequest);
         usuario = usuarioRepository.save(usuario);
-        log.debug("POST registerUser userId saved {} ", usuario.getId());
+        log.debug("POST save userId saved {} ", usuario.getId());
         log.info("User saved successfully userId {} ", usuario.getId());
 
         return usuarioMapper.toResponse(usuario);
+    }
+
+    @Override
+    public UserResponse update(Long id, UserRequest userRequest) {
+        log.debug("PUT id received {} ", id.toString());
+        log.debug("PUT UserRequest userRequest received {} ", userRequest.toString());
+        Usuario user = buscarOuFalhar(id);
+
+        if (existsByUsername(userRequest.getUsername())) {
+            log.warn("Username {} is Already Taken ", userRequest.getUsername());
+            throw new ConflictException(
+                    String.format("Error: Username is Already Taken! %s ", userRequest.getUsername()));
+        }
+
+        if (existsByEmail(userRequest.getEmail())) {
+            log.warn("Email {} is Already Taken ", userRequest.getEmail());
+            throw new ConflictException(
+                    String.format("\"Error: Email is Already Taken! %s ", userRequest.getEmail()));
+        }
+
+        passwordNotEquals(user, userRequest);
+
+        usuarioMapper.update(user, userRequest);
+
+        Usuario save = usuarioRepository.save(user);
+        log.debug("PUT update userId saved {} ", user.getId());
+        log.info("User update successfully userId {} ", user.getId());
+        return usuarioMapper.toResponse(save);
+    }
+
+    @Override
+    public Usuario buscarOuFalhar(Long id) {
+        log.debug("GET id received {} ", id.toString());
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro de usuário"+ id));
     }
 
     public Usuario buscarOuFalharPorEmail(String email) {

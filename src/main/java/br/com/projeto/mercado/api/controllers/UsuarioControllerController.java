@@ -32,8 +32,14 @@ public class UsuarioControllerController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> registrarUsuario(@RequestBody @Valid UserRequest userRequest) {
+    public ResponseEntity<UserResponse> registrar(@RequestBody @Valid UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(userRequest));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> atualizar(@PathVariable Long id,
+                                               @RequestBody @Valid UserRequest userRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.update(id, userRequest));
     }
 
     @DeleteMapping("/{id}")
