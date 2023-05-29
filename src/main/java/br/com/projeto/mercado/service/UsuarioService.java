@@ -33,4 +33,6 @@ public interface UsuarioService {
     void delete(Long id);
 
     UserResponse findByIdUserResponse(Long id);
+
+    void existsByUserName(Usuario usuario, String username);
 }

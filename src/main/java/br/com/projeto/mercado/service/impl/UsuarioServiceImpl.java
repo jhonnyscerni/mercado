@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -117,17 +118,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.debug("PUT UserRequest userRequest received {} ", userRequest.toString());
         Usuario user = buscarOuFalhar(id);
 
-        if (existsByUsername(userRequest.getUsername())) {
-            log.warn("Username {} is Already Taken ", userRequest.getUsername());
-            throw new ConflictException(
-                    String.format("Error: Username is Already Taken! %s ", userRequest.getUsername()));
-        }
-
-        if (existsByEmail(userRequest.getEmail())) {
-            log.warn("Email {} is Already Taken ", userRequest.getEmail());
-            throw new ConflictException(
-                    String.format("\"Error: Email is Already Taken! %s ", userRequest.getEmail()));
-        }
+        existsByUserName(user, userRequest.getUsername());
 
         passwordNotEquals(user, userRequest);
 
@@ -137,6 +128,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.debug("PUT update userId saved {} ", user.getId());
         log.info("User update successfully userId {} ", user.getId());
         return usuarioMapper.toResponse(save);
+    }
+
+    public void existsByUserName(Usuario usuario, String username) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByUsername(username);
+
+        if (optionalUsuario.isPresent() && !optionalUsuario.get().equals(usuario)) {
+            log.warn("Username {} is Already Taken ", optionalUsuario.get().getUsername());
+            throw new ConflictException(
+                    String.format("Error: Username is Already Taken! %s ", optionalUsuario.get().getUsername()));
+        }
     }
 
     @Override

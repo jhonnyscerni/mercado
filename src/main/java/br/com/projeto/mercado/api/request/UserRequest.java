@@ -32,7 +32,6 @@ public class UserRequest {
 
     private String telefone;
 
-    @JsonIgnore
     private String password;
 
     private TipoUsuario tipoUsuario;
