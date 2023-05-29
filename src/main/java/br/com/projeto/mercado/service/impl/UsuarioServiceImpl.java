@@ -187,6 +187,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
+    @Override
+    public UserResponse findByIdUserResponse(Long id) {
+        log.debug("GET UserResponse Long id received {} ", id.toString());
+        Usuario role = buscarOuFalhar(id);
+        return usuarioMapper.toResponse(role);
+    }
+
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }

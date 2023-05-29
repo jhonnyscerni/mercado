@@ -31,4 +31,6 @@ public interface UsuarioService {
     Page<UserResponse> search(UsuarioFiltro filter, Pageable pageable);
 
     void delete(Long id);
+
+    UserResponse findByIdUserResponse(Long id);
 }

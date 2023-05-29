@@ -31,6 +31,11 @@ public class UsuarioControllerController {
         return ResponseEntity.ok().body(usuarioService.search(filter, pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(usuarioService.findByIdUserResponse(id));
+    }
+
     @PostMapping
     public ResponseEntity<UserResponse> registrar(@RequestBody @Valid UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(userRequest));
