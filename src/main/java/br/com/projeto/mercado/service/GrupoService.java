@@ -16,4 +16,6 @@ public interface GrupoService {
     List<GrupoResponse> findAll();
 
     GrupoResponse findByIdGrupoResponse(Long id);
+
+    void delete(Long id);
 }

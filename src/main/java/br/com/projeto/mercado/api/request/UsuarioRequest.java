@@ -3,14 +3,13 @@ package br.com.projeto.mercado.api.request;
 import br.com.projeto.mercado.models.Endereco;
 import br.com.projeto.mercado.models.enums.StatusUsuario;
 import br.com.projeto.mercado.models.enums.TipoUsuario;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class UserRequest {
+public class UsuarioRequest {
 
     private String username;
 

@@ -4,10 +4,7 @@ import br.com.projeto.mercado.api.response.GrupoResponse;
 import br.com.projeto.mercado.service.GrupoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,11 @@ public class GrupoController {
     @GetMapping("/{id}")
     public ResponseEntity<GrupoResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(grupoService.findByIdGrupoResponse(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
+        grupoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

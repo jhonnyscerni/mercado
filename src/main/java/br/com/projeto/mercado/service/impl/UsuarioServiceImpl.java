@@ -3,8 +3,8 @@ package br.com.projeto.mercado.service.impl;
 
 import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.api.filter.UsuarioFiltro;
-import br.com.projeto.mercado.api.request.UserRequest;
-import br.com.projeto.mercado.api.response.UserResponse;
+import br.com.projeto.mercado.api.request.UsuarioRequest;
+import br.com.projeto.mercado.api.response.UsuarioResponse;
 import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.Usuario;
 import br.com.projeto.mercado.models.enums.TipoGrupo;
@@ -54,10 +54,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public void passwordNotEquals(Usuario user, UserRequest userRequest) {
+    public void passwordNotEquals(Usuario user, UsuarioRequest usuarioRequest) {
         log.debug("Verify password {} ", user.getId());
-        if (!user.getPassword().equals(userRequest.getPassword())) {
-            userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        if (!user.getPassword().equals(usuarioRequest.getPassword())) {
+            usuarioRequest.setPassword(passwordEncoder.encode(usuarioRequest.getPassword()));
         }
     }
 
@@ -89,22 +89,22 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserResponse save(UserRequest userRequest) {
-        log.debug("POST UserRequest userRequest received {} ", userRequest.toString());
-        if (existsByUsername(userRequest.getUsername())) {
-            log.warn("Username {} is Already Taken ", userRequest.getUsername());
+    public UsuarioResponse save(UsuarioRequest usuarioRequest) {
+        log.debug("POST UserRequest userRequest received {} ", usuarioRequest.toString());
+        if (existsByUsername(usuarioRequest.getUsername())) {
+            log.warn("Username {} is Already Taken ", usuarioRequest.getUsername());
             throw new ConflictException(
-                    String.format("Error: Username is Already Taken! %s ", userRequest.getUsername()));
+                    String.format("Error: Username is Already Taken! %s ", usuarioRequest.getUsername()));
         }
-        if (existsByEmail(userRequest.getEmail())) {
-            log.warn("Email {} is Already Taken ", userRequest.getEmail());
+        if (existsByEmail(usuarioRequest.getEmail())) {
+            log.warn("Email {} is Already Taken ", usuarioRequest.getEmail());
             throw new ConflictException(
-                    String.format("\"Error: Email is Already Taken! %s ", userRequest.getEmail()));
+                    String.format("\"Error: Email is Already Taken! %s ", usuarioRequest.getEmail()));
         }
 
-        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        usuarioRequest.setPassword(passwordEncoder.encode(usuarioRequest.getPassword()));
 
-        Usuario usuario = usuarioMapper.resquestToEntity(userRequest);
+        Usuario usuario = usuarioMapper.resquestToEntity(usuarioRequest);
         usuario = usuarioRepository.save(usuario);
         log.debug("POST save userId saved {} ", usuario.getId());
         log.info("User saved successfully userId {} ", usuario.getId());
@@ -113,16 +113,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserResponse update(Long id, UserRequest userRequest) {
+    public UsuarioResponse update(Long id, UsuarioRequest usuarioRequest) {
         log.debug("PUT id received {} ", id.toString());
-        log.debug("PUT UserRequest userRequest received {} ", userRequest.toString());
+        log.debug("PUT UserRequest userRequest received {} ", usuarioRequest.toString());
         Usuario user = buscarOuFalhar(id);
 
-        existsByUserName(user, userRequest.getUsername());
+        existsByUserName(user, usuarioRequest.getUsername());
 
-        passwordNotEquals(user, userRequest);
+        passwordNotEquals(user, usuarioRequest);
 
-        usuarioMapper.update(user, userRequest);
+        usuarioMapper.update(user, usuarioRequest);
 
         Usuario save = usuarioRepository.save(user);
         log.debug("PUT update userId saved {} ", user.getId());
@@ -169,7 +169,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Page<UserResponse> search(UsuarioFiltro filter, Pageable pageable) {
+    public Page<UsuarioResponse> search(UsuarioFiltro filter, Pageable pageable) {
         log.debug("GET UserFilter filter received {} ", filter.toString());
         return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toResponse);
 
@@ -189,7 +189,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserResponse findByIdUserResponse(Long id) {
+    public UsuarioResponse findByIdUserResponse(Long id) {
         log.debug("GET UserResponse Long id received {} ", id.toString());
         Usuario role = buscarOuFalhar(id);
         return usuarioMapper.toResponse(role);

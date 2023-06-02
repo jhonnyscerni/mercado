@@ -4,12 +4,15 @@ import br.com.projeto.mercado.api.response.GrupoResponse;
 import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.enums.TipoGrupo;
 import br.com.projeto.mercado.models.exceptions.BusinessException;
+import br.com.projeto.mercado.models.exceptions.EntityInUseException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.GrupoMapper;
 import br.com.projeto.mercado.repositories.GrupoRepository;
 import br.com.projeto.mercado.service.GrupoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class GrupoServiceImpl implements GrupoService {
+
+    private static final String MSG_EXCEPTION
+            = "Grupo de código %d não pode ser removida, pois está em uso";
 
     private final GrupoRepository grupoRepository;
     private final GrupoMapper grupoMapper;
@@ -47,6 +53,19 @@ public class GrupoServiceImpl implements GrupoService {
         log.debug("GET GrupoResponse Long id received {} ", id.toString());
         Grupo role = buscarOuFalhar(id);
         return grupoMapper.toResponse(role);
+    }
+
+    @Override
+    public void delete(Long id) {
+        try {
+            grupoRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException(id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityInUseException(
+                    String.format(MSG_EXCEPTION, id));
+        }
     }
 
 }
