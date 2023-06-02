@@ -67,6 +67,7 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
     public CategoriaProdutoResponse save(CategoriaProdutoRequest categoriaProdutoRequest) {
         log.debug("POST CategoriaProdutoRequest categoriaProdutoRequest received {} ", categoriaProdutoRequest.toString());
 
+        // TODO : Verificar se Criamos um novo DTO (CategoriaProdutoCreateRequest) para setar o usuario Empresa
         CategoriaProduto categoriaProduto = categoriaProdutoMapper.resquestToEntity(categoriaProdutoRequest);
 
         if (categoriaProduto.getId() == null && categoriaProdutoRepository.findByNomeDesc(categoriaProduto.getNomeDesc()).isPresent()) {
@@ -90,6 +91,7 @@ public class CategoriaProdutoServiceImpl implements CategoriaProdutoService {
 
         existsByCategoriaNomeDesc(categoriaProduto, categoriaProdutoRequest.getNomeDesc());
 
+        // TODO : Verificar se Criamos um novo DTO (CategoriaProdutoUpdateRequest) para setar o usuario Empresa
         categoriaProdutoMapper.update(categoriaProduto, categoriaProdutoRequest);
 
         CategoriaProduto save = categoriaProdutoRepository.save(categoriaProduto);

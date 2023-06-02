@@ -68,7 +68,7 @@ public class MarcaProdutoServiceImpl implements MarcaProdutoService {
     @Override
     public MarcaProdutoResponse save(MarcaProdutoRequest marcaProdutoRequest) {
         log.debug("POST MarcaProdutoRequest marcaProdutoRequest received {} ", marcaProdutoRequest.toString());
-
+        // TODO : Verificar se Criamos um novo DTO (CategoriaProdutoCreateRequest) para setar o usuario Empresa
         MarcaProduto marcaProduto = marcaProdutoMapper.resquestToEntity(marcaProdutoRequest);
 
         if (marcaProduto.getId() == null && marcaProdutoRepository.findByNomeDesc(marcaProduto.getNomeDesc()).isPresent()) {
@@ -91,7 +91,7 @@ public class MarcaProdutoServiceImpl implements MarcaProdutoService {
         MarcaProduto marcaProduto = buscarOuFalhar(id);
 
         existsByMarcaNomeDesc(marcaProduto, marcaProdutoRequest.getNomeDesc());
-
+        // TODO : Verificar se Criamos um novo DTO (CategoriaProdutoUpdateRequest) para setar o usuario Empresa
         marcaProdutoMapper.update(marcaProduto, marcaProdutoRequest);
 
         MarcaProduto save = marcaProdutoRepository.save(marcaProduto);
