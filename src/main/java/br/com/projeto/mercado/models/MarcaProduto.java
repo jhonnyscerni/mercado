@@ -4,17 +4,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -39,7 +29,7 @@ public class MarcaProduto implements Serializable {
     private String nomeDesc;
 
 
-    @ManyToOne(targetEntity = Usuario.class)
+    @ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL)
     // TODO : Retirando nullable = false, repois retornar ele
     @JoinColumn(name = "usuario_id",
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_id_fk"))
