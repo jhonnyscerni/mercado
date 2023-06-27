@@ -27,7 +27,8 @@ public class CategoriaProduto implements Serializable {
 
 
     @ManyToOne(targetEntity = Usuario.class)
-    @JoinColumn(name = "usuario_id", nullable = false,
+    // TODO : Retirando nullable = false, repois retornar ele
+    @JoinColumn(name = "usuario_id",
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_id_fk"))
     private Usuario empresa = new Usuario();
 

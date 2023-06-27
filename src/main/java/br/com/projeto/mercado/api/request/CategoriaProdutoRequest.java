@@ -11,6 +11,6 @@ public class CategoriaProdutoRequest {
 
     private String nomeDesc;
 
-    @NotNull
+    //@NotNull
     private Long empresaId;
 }
