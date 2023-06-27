@@ -1,3 +1,9 @@
+delete from public.endereco;
+delete from public.tb_usuarios_grupos;
+delete from public.tb_grupos;
+delete from public.tb_usuarios;
+
+
 INSERT INTO public.tb_usuarios (id,categoria,cnpj,email,insc_estadual,insc_municipal,nome_fantasia,password,razao_social,status_usuario,telefone,tipo_usuario,username) VALUES
 	 (1,'categoria','00120310230123','jhonnyscerni@gmail.com','1234566','123456','SCERNIS','$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W','SCERNI TESTE','ACTIVE','123456','ADMIN','jhonnyscerni');
 
