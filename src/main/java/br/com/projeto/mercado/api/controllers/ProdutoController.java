@@ -9,9 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -24,5 +22,16 @@ public class ProdutoController {
     public ResponseEntity<Page<ProdutoResponse>> pesquisar(ProdutoFiltro filter,
                                                            @PageableDefault(size = 10) Pageable pageable) {
         return ResponseEntity.ok().body(produtoService.search(filter, pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoResponse> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(produtoService.findByIdProdutoResponse(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable Long id) {
+        produtoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
