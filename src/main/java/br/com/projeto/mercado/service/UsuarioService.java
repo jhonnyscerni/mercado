@@ -2,13 +2,11 @@ package br.com.projeto.mercado.service;
 
 import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.api.filter.UsuarioFiltro;
-import br.com.projeto.mercado.api.request.UserRequest;
-import br.com.projeto.mercado.api.response.UserResponse;
+import br.com.projeto.mercado.api.request.UsuarioRequest;
+import br.com.projeto.mercado.api.response.UsuarioResponse;
 import br.com.projeto.mercado.models.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.UUID;
 
 public interface UsuarioService {
 
@@ -16,23 +14,23 @@ public interface UsuarioService {
 
     boolean existsByEmail(String email);
 
-    void passwordNotEquals(Usuario user, UserRequest userRequest);
+    void passwordNotEquals(Usuario user, UsuarioRequest usuarioRequest);
 
     UserDto saveUser(UserDto userDto);
 
-    UserResponse save(UserRequest userRequest);
+    UsuarioResponse save(UsuarioRequest usuarioRequest);
 
-    UserResponse update(Long id, UserRequest userRequest);
+    UsuarioResponse update(Long id, UsuarioRequest usuarioRequest);
 
     Usuario buscarOuFalhar(Long usuarioId);
 
     UserDto resetPassword(String email);
 
-    Page<UserResponse> search(UsuarioFiltro filter, Pageable pageable);
+    Page<UsuarioResponse> search(UsuarioFiltro filter, Pageable pageable);
 
     void delete(Long id);
 
-    UserResponse findByIdUserResponse(Long id);
+    UsuarioResponse findByIdUserResponse(Long id);
 
     void existsByUserName(Usuario usuario, String username);
 }

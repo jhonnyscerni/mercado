@@ -4,10 +4,7 @@ import br.com.projeto.mercado.models.enums.StatusUsuario;
 import br.com.projeto.mercado.models.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
@@ -22,12 +19,14 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TB_USUARIOS")
+@Table(name = "tb_usuarios")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1, initialValue = 1)
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
+    @EqualsAndHashCode.Include
     private Long id;
 
     private String username;

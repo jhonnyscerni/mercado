@@ -1,10 +1,9 @@
 package br.com.projeto.mercado.models.mapper;
 
 import br.com.projeto.mercado.api.dto.UserDto;
-import br.com.projeto.mercado.api.request.UserRequest;
-import br.com.projeto.mercado.api.response.UserResponse;
+import br.com.projeto.mercado.api.request.UsuarioRequest;
+import br.com.projeto.mercado.api.response.UsuarioResponse;
 import br.com.projeto.mercado.models.Usuario;
-import br.com.projeto.mercado.utils.ModelMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -15,9 +14,9 @@ public interface UsuarioMapper {
 
     Usuario toEntity(UserDto model);
 
-    UserResponse toResponse(Usuario entity);
+    UsuarioResponse toResponse(Usuario entity);
 
-    Usuario resquestToEntity(UserRequest model);
+    Usuario resquestToEntity(UsuarioRequest model);
 
-    void update(@MappingTarget Usuario user, UserRequest userRequest);
+    void update(@MappingTarget Usuario user, UsuarioRequest usuarioRequest);
 }
