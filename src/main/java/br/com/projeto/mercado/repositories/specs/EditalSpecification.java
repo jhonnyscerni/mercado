@@ -23,7 +23,7 @@ public class EditalSpecification implements Specification<Edital> {
         List<Predicate> predicates = new ArrayList<>();
 
         Optional.ofNullable(filtro.getNumero())
-                .ifPresent(p -> predicates.add(criteriaBuilder.like(root.get("numero"), "%" + filtro.getNumero() + "%")));
+                .ifPresent(p -> predicates.add(criteriaBuilder.equal(root.get("numero"),  filtro.getNumero())));
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }
