@@ -2,13 +2,16 @@ package br.com.projeto.mercado.service.impl;
 
 import br.com.projeto.mercado.api.filter.ProdutoFiltro;
 import br.com.projeto.mercado.api.response.ProdutoResponse;
+import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.Produto;
 import br.com.projeto.mercado.models.Usuario;
+import br.com.projeto.mercado.models.enums.TipoGrupo;
 import br.com.projeto.mercado.models.exceptions.EntityInUseException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.ProdutoMapper;
 import br.com.projeto.mercado.repositories.ProdutoRepository;
 import br.com.projeto.mercado.repositories.specs.ProdutoSpecification;
+import br.com.projeto.mercado.security.AuthenticationCurrentUserService;
 import br.com.projeto.mercado.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Slf4j
@@ -29,10 +38,18 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
+    private final AuthenticationCurrentUserService authenticationCurrentUserService;
 
     @Override
     public Page<ProdutoResponse> search(ProdutoFiltro filter, Pageable pageable) {
         log.debug("GET ProdutoFiltro filter received {} ", filter.toString());
+        authenticationCurrentUserService.getAuthentication().getAuthorities().forEach(
+                grantedAuthority -> {
+                    if (!(grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_ADMIN.name()))){
+                        filter.setUserId(authenticationCurrentUserService.getCurrentUser().getUserId());
+                    }
+                } );
+
         return produtoRepository.findAll(new ProdutoSpecification(filter), pageable).map(produtoMapper::toResponse);
 
     }

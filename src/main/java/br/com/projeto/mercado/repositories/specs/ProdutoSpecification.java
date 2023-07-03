@@ -22,6 +22,8 @@ public class ProdutoSpecification implements Specification<Produto> {
     public Predicate toPredicate(Root<Produto> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
+        Optional.ofNullable(produtoFiltro.getUserId())
+                .ifPresent(p -> predicates.add(criteriaBuilder.equal(root.get("empresa").get("id"), produtoFiltro.getUserId())));
         Optional.ofNullable(produtoFiltro.getNome())
                 .ifPresent(p -> predicates.add(criteriaBuilder.like(root.get("nome"), "%" + produtoFiltro.getNome() + "%")));
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

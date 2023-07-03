@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class ProdutoFiltro {
 
+    private Long userId;
     private String nome;
 }
