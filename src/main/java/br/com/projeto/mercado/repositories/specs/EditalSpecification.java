@@ -22,6 +22,8 @@ public class EditalSpecification implements Specification<Edital> {
     public Predicate toPredicate(Root<Edital> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
+        Optional.ofNullable(filtro.getUserId())
+                .ifPresent(p -> predicates.add(criteriaBuilder.equal(root.get("empresa").get("id"), filtro.getUserId())));
         Optional.ofNullable(filtro.getNumero())
                 .ifPresent(p -> predicates.add(criteriaBuilder.equal(root.get("numero"),  filtro.getNumero())));
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));

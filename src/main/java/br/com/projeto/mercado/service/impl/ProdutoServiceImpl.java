@@ -43,12 +43,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public Page<ProdutoResponse> search(ProdutoFiltro filter, Pageable pageable) {
         log.debug("GET ProdutoFiltro filter received {} ", filter.toString());
-        authenticationCurrentUserService.getAuthentication().getAuthorities().forEach(
-                grantedAuthority -> {
-                    if (!(grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_ADMIN.name()))){
-                        filter.setUserId(authenticationCurrentUserService.getCurrentUser().getUserId());
-                    }
-                } );
+        authenticationCurrentUserService.verifyProductIsRoleAdmin(filter);
 
         return produtoRepository.findAll(new ProdutoSpecification(filter), pageable).map(produtoMapper::toResponse);
 

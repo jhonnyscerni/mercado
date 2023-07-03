@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class EditalFiltro {
 
+    private Long userId;
     private Long numero;
 }
