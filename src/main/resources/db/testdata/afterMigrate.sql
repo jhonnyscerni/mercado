@@ -45,7 +45,7 @@ VALUES(1, 'marca-teste', NULL);
 
 INSERT INTO public.produto
 (id, alerta_qtde_estoque, altura, ativo, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, usuario_id, marca_produto_id)
-VALUES(1, true, 0.3, true, 'Produto descricao - ADMIN', 0.4, NULL, 'Nome do Produto - ADMIN', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 1, 1);
+VALUES(1, true, 0.3, true, 'Produto descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Produto - COMPRADOR 2', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 1, 1);
 
 INSERT INTO public.produto
 (id, alerta_qtde_estoque, altura, ativo, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, usuario_id, marca_produto_id)
@@ -53,6 +53,6 @@ VALUES(2, true, 0.3, true, 'Produto descricao - COMPRADOR', 0.4, NULL, 'Nome do 
 
 INSERT INTO public.edital
 (id, data_fim, data_inicio, numero, usuario_id, endereco_id, produto_id)
-VALUES(1, NULL, NULL, 1, 1, 1, 1);
+VALUES(1, NULL, NULL, 2, 1, 1, 1);
 
 

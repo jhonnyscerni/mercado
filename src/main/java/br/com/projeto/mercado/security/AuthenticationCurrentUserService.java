@@ -30,7 +30,7 @@ public class AuthenticationCurrentUserService {
     public void verifyNoticeIsRoleAdmin(EditalFiltro filter) {
         this.getAuthentication().getAuthorities().forEach(
                 grantedAuthority -> {
-                    if (!(grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_ADMIN.name()))){
+                    if (grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_BUYER.name())){
                         filter.setUserId(this.getCurrentUser().getUserId());
                     }
                 } );
