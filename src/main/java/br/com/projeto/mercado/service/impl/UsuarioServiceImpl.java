@@ -62,7 +62,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserDto saveUser(UserDto userDto) {
+    public UsuarioResponse saveUser(UserDto userDto) {
         log.debug("POST registerUser userDto received {} ", userDto.toString());
         if (existsByUsername(userDto.getUsername())) {
             log.warn("Username {} is Already Taken ", userDto.getUsername());
@@ -84,7 +84,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.debug("POST registerUser userId saved {} ", usuario.getId());
         log.info("User saved successfully userId {} ", usuario.getId());
 
-        return usuarioMapper.toModel(usuario);
+        return usuarioMapper.toResponse(usuario);
 
     }
 
@@ -154,7 +154,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UserDto resetPassword(String email) {
+    public UsuarioResponse resetPassword(String email) {
 
         Usuario usuario = buscarOuFalharPorEmail(email);
         String password = UUID.randomUUID().toString();
@@ -165,7 +165,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         emailService.sendNewPasswordEmail(usuario);
         log.info("Mail send successfully new password: " + password);
 
-        return usuarioMapper.toModel(usuario);
+        return usuarioMapper.toResponse(usuario);
     }
 
     @Override

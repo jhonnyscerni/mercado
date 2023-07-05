@@ -3,6 +3,7 @@ package br.com.projeto.mercado.api.controllers;
 import br.com.projeto.mercado.api.dto.JwtDto;
 import br.com.projeto.mercado.api.dto.LoginDto;
 import br.com.projeto.mercado.api.dto.UserDto;
+import br.com.projeto.mercado.api.response.UsuarioResponse;
 import br.com.projeto.mercado.security.jwt.JwtProvider;
 import br.com.projeto.mercado.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class AutenticacaoController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> registerUser(@RequestBody @Valid UserDto userDto) {
+    public ResponseEntity<UsuarioResponse> registerUser(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(userDto));
     }
 
@@ -47,7 +48,7 @@ public class AutenticacaoController {
     }
 
     @GetMapping("/resetpassword/{email}")
-    public ResponseEntity<UserDto> resetPassword(@PathVariable("email") String email) {
+    public ResponseEntity<UsuarioResponse> resetPassword(@PathVariable("email") String email) {
         return ResponseEntity.ok(usuarioService.resetPassword(email));
     }
 }

@@ -16,7 +16,7 @@ public interface UsuarioService {
 
     void passwordNotEquals(Usuario user, UsuarioRequest usuarioRequest);
 
-    UserDto saveUser(UserDto userDto);
+    UsuarioResponse saveUser(UserDto userDto);
 
     UsuarioResponse save(UsuarioRequest usuarioRequest);
 
@@ -24,7 +24,7 @@ public interface UsuarioService {
 
     Usuario buscarOuFalhar(Long usuarioId);
 
-    UserDto resetPassword(String email);
+    UsuarioResponse resetPassword(String email);
 
     Page<UsuarioResponse> search(UsuarioFiltro filter, Pageable pageable);
 
