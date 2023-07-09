@@ -15,7 +15,7 @@ public class EditalResponse {
 
     private OffsetDateTime dataFim;
 
-    private UsuarioResponse empresa;
+    private EmpresaResponse empresa;
 
     private ProdutoResponse produto;
 

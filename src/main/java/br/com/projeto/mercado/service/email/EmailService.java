@@ -12,7 +12,7 @@ public class EmailService {
 
     public void sendNewPasswordEmail(Usuario usuario) {
         EnvioEmailService.Mensagem mensagem = EnvioEmailService.Mensagem.builder()
-                .assunto(usuario.getNomeFantasia() + " - Recuperação de senha")
+                .assunto(usuario.getEmpresa().getNomeFantasia() + " - Recuperação de senha")
                 .corpo("modelo-recuperar-senha.html")
                 .variavel("usuario", usuario)
                 .variavel("novaSenha", usuario.getPassword())

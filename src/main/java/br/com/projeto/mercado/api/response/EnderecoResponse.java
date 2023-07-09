@@ -24,7 +24,5 @@ public class EnderecoResponse {
 
     private String estado;
 
-    private UsuarioResponse usuario;
-
     private TipoEndereco tipoEndereco;
 }

@@ -29,10 +29,4 @@ public class MarcaProduto implements Serializable {
     private String nomeDesc;
 
 
-    @ManyToOne(targetEntity = Usuario.class, cascade = CascadeType.ALL)
-    // TODO : Retirando nullable = false, repois retornar ele
-    @JoinColumn(name = "usuario_id",
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_id_fk"))
-    private Usuario empresa;
-
 }

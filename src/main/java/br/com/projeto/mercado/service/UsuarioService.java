@@ -16,7 +16,7 @@ public interface UsuarioService {
 
     void passwordNotEquals(Usuario user, UsuarioRequest usuarioRequest);
 
-    UsuarioResponse saveUser(UserDto userDto);
+    UsuarioResponse saveUser(String tipoUsuario, UserDto userDto);
 
     UsuarioResponse save(UsuarioRequest usuarioRequest);
 

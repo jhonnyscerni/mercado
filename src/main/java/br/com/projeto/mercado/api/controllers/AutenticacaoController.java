@@ -34,8 +34,8 @@ public class AutenticacaoController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UsuarioResponse> registerUser(@RequestBody @Valid UserDto userDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(userDto));
+    public ResponseEntity<UsuarioResponse> registerUser(@RequestParam String tipoUsuario, @RequestBody @Valid UserDto userDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(tipoUsuario, userDto));
     }
 
     @PostMapping("/login")

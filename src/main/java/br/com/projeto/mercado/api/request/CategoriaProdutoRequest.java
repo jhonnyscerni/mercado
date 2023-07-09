@@ -10,7 +10,4 @@ public class CategoriaProdutoRequest {
     private Long id;
 
     private String nomeDesc;
-
-    //@NotNull
-    private Long empresaId;
 }

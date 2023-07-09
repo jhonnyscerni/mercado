@@ -5,15 +5,19 @@ import br.com.projeto.mercado.api.dto.UserDto;
 import br.com.projeto.mercado.api.filter.UsuarioFiltro;
 import br.com.projeto.mercado.api.request.UsuarioRequest;
 import br.com.projeto.mercado.api.response.UsuarioResponse;
+import br.com.projeto.mercado.models.Empresa;
 import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.Usuario;
 import br.com.projeto.mercado.models.enums.TipoGrupo;
+import br.com.projeto.mercado.models.enums.TipoUsuario;
 import br.com.projeto.mercado.models.exceptions.ConflictException;
 import br.com.projeto.mercado.models.exceptions.EntityInUseException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.UsuarioMapper;
+import br.com.projeto.mercado.repositories.EmpresaRepository;
 import br.com.projeto.mercado.repositories.UsuarioRepository;
 import br.com.projeto.mercado.repositories.specs.UsuarioSpecification;
+import br.com.projeto.mercado.security.AuthenticationCurrentUserService;
 import br.com.projeto.mercado.service.GrupoService;
 import br.com.projeto.mercado.service.UsuarioService;
 import br.com.projeto.mercado.service.email.EmailService;
@@ -38,10 +42,12 @@ public class UsuarioServiceImpl implements UsuarioService {
             = "Usuário de código %d não pode ser removida, pois está em uso";
 
     private final UsuarioRepository usuarioRepository;
+    private final EmpresaRepository empresaRepository;
     private final GrupoService grupoService;
     private final UsuarioMapper usuarioMapper;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final AuthenticationCurrentUserService authenticationCurrentUserService;
 
     @Override
     public boolean existsByUsername(String username) {
@@ -62,7 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse saveUser(UserDto userDto) {
+    public UsuarioResponse saveUser(String tipoUsuario, UserDto userDto) {
         log.debug("POST registerUser userDto received {} ", userDto.toString());
         if (existsByUsername(userDto.getUsername())) {
             log.warn("Username {} is Already Taken ", userDto.getUsername());
@@ -76,8 +82,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        Grupo grupo = grupoService.findByRoleName(TipoGrupo.ROLE_VENDOR);
-
+        Grupo grupo = new Grupo();
+        if (tipoUsuario.equals(TipoUsuario.VENDEDOR.name())) {
+            grupo = grupoService.findByRoleName(TipoGrupo.ROLE_VENDOR);
+        }else if (tipoUsuario.equals(TipoUsuario.COMPRADOR.name())){
+            grupo = grupoService.findByRoleName(TipoGrupo.ROLE_ADMIN);
+        }else {
+            throw new EntityNotFoundException("Tipo de Usuario nao encontrado");
+        }
         Usuario usuario = usuarioMapper.toEntity(userDto);
         usuario.getGrupos().add(grupo);
         usuario = usuarioRepository.save(usuario);
@@ -102,7 +114,12 @@ public class UsuarioServiceImpl implements UsuarioService {
                     String.format("\"Error: Email is Already Taken! %s ", usuarioRequest.getEmail()));
         }
 
+        Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: "+ empresaId));
+
         usuarioRequest.setPassword(passwordEncoder.encode(usuarioRequest.getPassword()));
+        usuarioRequest.setEmpresa(empresa);
 
         Usuario usuario = usuarioMapper.resquestToEntity(usuarioRequest);
         usuario = usuarioRepository.save(usuario);
@@ -121,6 +138,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         existsByUserName(user, usuarioRequest.getUsername());
 
         passwordNotEquals(user, usuarioRequest);
+
+        Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: "+ empresaId));
+
+        usuarioRequest.setEmpresa(empresa);
 
         usuarioMapper.update(user, usuarioRequest);
 
@@ -171,6 +194,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Page<UsuarioResponse> search(UsuarioFiltro filter, Pageable pageable) {
         log.debug("GET UserFilter filter received {} ", filter.toString());
+        authenticationCurrentUserService.verifyUserCompany(filter);
         return usuarioRepository.findAll(new UsuarioSpecification(filter), pageable).map(usuarioMapper::toResponse);
 
     }
