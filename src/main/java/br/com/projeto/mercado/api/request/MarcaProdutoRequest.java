@@ -8,6 +8,4 @@ public class MarcaProdutoRequest {
     private Long id;
 
     private String nomeDesc;
-
-    private Long empresaId;
 }

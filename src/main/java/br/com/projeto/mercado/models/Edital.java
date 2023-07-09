@@ -33,10 +33,10 @@ public class Edital implements Serializable {
     @Column(name = "data_fim")
     private OffsetDateTime dataFim;
 
-    @ManyToOne(targetEntity = Usuario.class)
-    @JoinColumn(name = "usuario_id", nullable = false,
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_id_fk"))
-    private Usuario empresa;
+    @ManyToOne(targetEntity = Empresa.class)
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Empresa empresa;
 
     @ManyToOne(targetEntity =  Produto.class)
     @JoinColumn(name = "produto_id", nullable = false,

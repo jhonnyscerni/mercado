@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class UsuarioResponse {
@@ -15,20 +16,6 @@ public class UsuarioResponse {
     private Long id;
 
     private String username;
-
-    private String razaoSocial;
-
-    private String nomeFantasia;
-
-    private String cnpj;
-
-    private List<Endereco> enderecos = new ArrayList<Endereco>();
-
-    private String inscEstadual;
-
-    private String inscMunicipal;
-
-    private String categoria;
 
     private String email;
 
@@ -40,5 +27,9 @@ public class UsuarioResponse {
     private TipoUsuario tipoUsuario;
 
     private StatusUsuario statusUsuario;
+
+    private EmpresaResponse empresa;
+
+    private Set<GrupoResponse> grupos;
 
 }

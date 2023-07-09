@@ -5,13 +5,10 @@ import br.com.projeto.mercado.models.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,32 +28,10 @@ public class Usuario {
 
     private String username;
 
-    @Column(nullable = false, unique = true, length = 255)
-    private String razaoSocial;
-
-    @Column(nullable = false, unique = true, length = 50)
-    private String nomeFantasia;
-
-    @CNPJ(message = "Cnpj está inválido")
-    @Column(nullable = false)
-    private String cnpj;
-
-    @OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Endereco> enderecos = new ArrayList<Endereco>();
-
-    @Column(nullable = false)
-    private String inscEstadual;
-
-
-    private String inscMunicipal;
-
-    private String categoria;
-
     @Email
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String telefone;
 
     @Column(nullable = false)
@@ -70,10 +45,13 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private StatusUsuario statusUsuario;
 
+    @JsonIgnore
+    @ManyToOne(targetEntity = Empresa.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Empresa empresa;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "TB_USUARIOS_GRUPOS",
+    @JoinTable(name = "TB_USUARIOS_GRUPOS",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private Set<Grupo> grupos = new HashSet<>();

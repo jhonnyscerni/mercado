@@ -1,31 +1,18 @@
 package br.com.projeto.mercado.api.request;
 
-import br.com.projeto.mercado.models.Endereco;
+import br.com.projeto.mercado.models.Empresa;
+import br.com.projeto.mercado.models.Grupo;
 import br.com.projeto.mercado.models.enums.StatusUsuario;
 import br.com.projeto.mercado.models.enums.TipoUsuario;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class UsuarioRequest {
 
     private String username;
-
-    private String razaoSocial;
-
-    private String nomeFantasia;
-
-    private String cnpj;
-
-    private List<Endereco> enderecos = new ArrayList<Endereco>();
-
-    private String inscEstadual;
-
-    private String inscMunicipal;
-
-    private String categoria;
 
     private String email;
 
@@ -36,5 +23,9 @@ public class UsuarioRequest {
     private TipoUsuario tipoUsuario;
 
     private StatusUsuario statusUsuario;
+
+    private Empresa empresa;
+
+    Set<Grupo> grupos = new HashSet<>();
 
 }

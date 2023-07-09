@@ -1,9 +1,8 @@
 package br.com.projeto.mercado.api.response;
 
-import br.com.projeto.mercado.models.CategoriaProduto;
+import br.com.projeto.mercado.models.Empresa;
 import br.com.projeto.mercado.models.ImagemProduto;
 import br.com.projeto.mercado.models.MarcaProduto;
-import br.com.projeto.mercado.models.Usuario;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -43,11 +42,11 @@ public class ProdutoResponse {
 
     private Integer qtdeClique = 0;
 
-    private Usuario empresa;
+    private Empresa empresa;
 
-    private CategoriaProduto categoriaProduto = new CategoriaProduto();
+    private CategoriaProdutoResponse categoriaProduto = new CategoriaProdutoResponse();
 
-    private MarcaProduto marcaProduto = new MarcaProduto();
+    private MarcaProdutoResponse marcaProduto = new MarcaProdutoResponse();
 
     private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
 

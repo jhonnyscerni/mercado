@@ -24,7 +24,7 @@ public class EditalServiceImpl implements EditalService {
     @Override
     public Page<EditalResponse> search(EditalFiltro filter, Pageable pageable) {
         log.debug("GET UserFilter filter received {} ", filter.toString());
-        authenticationCurrentUserService.verifyNoticeIsRoleAdmin(filter);
+        authenticationCurrentUserService.verifyNoticeIsRoleVendorOrAdmin(filter);
         return editalRepository.findAll(new EditalSpecification(filter), pageable).map(editalMapper::toResponse);
     }
 }

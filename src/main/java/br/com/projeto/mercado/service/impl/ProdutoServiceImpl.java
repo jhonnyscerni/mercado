@@ -19,13 +19,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Slf4j
@@ -43,7 +37,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public Page<ProdutoResponse> search(ProdutoFiltro filter, Pageable pageable) {
         log.debug("GET ProdutoFiltro filter received {} ", filter.toString());
-        authenticationCurrentUserService.verifyProductIsRoleAdmin(filter);
+        authenticationCurrentUserService.verifyProductIsRoleVendorOrAdmin(filter);
 
         return produtoRepository.findAll(new ProdutoSpecification(filter), pageable).map(produtoMapper::toResponse);
 

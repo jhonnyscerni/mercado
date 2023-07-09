@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
 
     private Long userId;
-    private String fullName;
+    private Long empresaId;
     private String username;
     @JsonIgnore
     private String password;
@@ -33,7 +33,7 @@ public class UserDetailsImpl implements UserDetails {
         // Incluir outros parametros
         return new UserDetailsImpl(
                 usuarioModel.getId(),
-                usuarioModel.getNomeFantasia(),
+                usuarioModel.getEmpresa().getId(),
                 usuarioModel.getUsername(),
                 usuarioModel.getPassword(),
                 usuarioModel.getEmail(),

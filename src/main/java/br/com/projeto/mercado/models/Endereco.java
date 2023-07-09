@@ -40,20 +40,12 @@ public class Endereco implements Serializable {
 	private String bairro;
 	
 	@Column(nullable = false)
-	private String uf;
-	
-	@Column(nullable = false)
 	private String cidade;
 	
 	@Column(nullable = true)
 	private String estado;
-
-	@JsonIgnore
-	@ManyToOne(targetEntity = Usuario.class)
-	@JoinColumn(name = "usuario_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_fk"))
-	private Usuario usuario;
 	
-	@Column(nullable = false)
+	@Column
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 

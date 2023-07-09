@@ -9,5 +9,4 @@ public class CategoriaProdutoResponse {
 
     private String nomeDesc;
 
-    private UsuarioResponse empresa;
 }

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 public class UsuarioFiltro {
 
+    private Long empresaId;
+
     private String username;
 
     private String email;
