@@ -22,7 +22,10 @@ public class AuthenticationCurrentUserService {
     public void verifyProductIsRoleVendorOrAdmin(ProdutoFiltro filter) {
         this.getAuthentication().getAuthorities().forEach(
                 grantedAuthority -> {
+                    if ((grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_BUYER.name()))
+                            || (grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_ADMIN.name()))){
                         filter.setEmpresaId(this.getCurrentUser().getEmpresaId());
+                    }
                 } );
     }
 

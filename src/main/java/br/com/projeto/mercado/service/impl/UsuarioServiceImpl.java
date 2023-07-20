@@ -83,7 +83,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Grupo grupo = new Grupo();
-        if (tipoUsuario.equals(TipoUsuario.VENDEDOR.name())) {
+
+        // TODO: O Padrao no FRONT esta como ADMIN - caso queria distinguir o tipo de conta ao ser criada modificar no FRONT
+        if (tipoUsuario.equals(TipoUsuario.ADMIN.name())) {
+            grupo = grupoService.findByRoleName(TipoGrupo.ROLE_ADMIN);
+        }else if (tipoUsuario.equals(TipoUsuario.VENDEDOR.name())) {
             grupo = grupoService.findByRoleName(TipoGrupo.ROLE_VENDOR);
         }else if (tipoUsuario.equals(TipoUsuario.COMPRADOR.name())){
             grupo = grupoService.findByRoleName(TipoGrupo.ROLE_ADMIN);
