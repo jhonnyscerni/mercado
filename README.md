@@ -22,7 +22,7 @@
 
 ### Usuario Admin
 <b>Login</b>: jhonnyscerni <b>senha</b>: 123
-- Esse Usuario podera ver os cadastros da empresa dele propria
+- Esse Usuario podera ver os cadastros da empresa que ele pertence
 
 ### Acessos - Modulos
 #### - Painel de Usuarios
@@ -47,7 +47,7 @@
 
 ### Usuario vendedor 
 <b>Login</b>: vendedor <b>senha</b>: 123
-- Esse Usuario podera ver Todos Editais endependente de empresa
+- Esse Usuario podera ver Todos Editais independente de empresa
 
 ### Acessos - Modulos
 #### - Editais
@@ -57,7 +57,7 @@
 
 ### Usuario Admin da Empresa Siberius2 Informática Ltda
 <b>Login</b>: scerni <b>senha</b>: 123
-- Esse Usuario podera ver os cadastros da empresa dele propria
+- Esse Usuario podera ver os cadastros da empresa que ele pertence
 
 ### Acessos - Modulos
 #### - Painel de Usuarios
