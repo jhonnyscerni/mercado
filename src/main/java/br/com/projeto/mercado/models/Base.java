@@ -20,7 +20,8 @@ public class Base{
 
     private Date modificacao;
 
-    private boolean ativo;
+    @Column(nullable = false)
+    private Boolean ativo = Boolean.TRUE;
 
     private Long codigoUsuarioCriacao;
 

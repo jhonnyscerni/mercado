@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "categoria_produto")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_categoria_produto", sequenceName = "seq_categoria_produto", allocationSize = 1, initialValue = 1)
-public class CategoriaProduto implements Serializable {
+public class CategoriaProduto  extends Base implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
