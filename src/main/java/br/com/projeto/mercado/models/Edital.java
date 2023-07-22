@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @Table(name = "edital")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_edital", sequenceName = "seq_edital", allocationSize = 1, initialValue = 1)
-public class Edital implements Serializable {
+public class Edital extends Base implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

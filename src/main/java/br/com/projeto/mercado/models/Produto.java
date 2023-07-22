@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 @Table(name = "produto")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto", allocationSize = 1, initialValue = 1)
-public class Produto implements Serializable {
+public class Produto extends Base implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

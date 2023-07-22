@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "leilao")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_leilao", sequenceName = "seq_leilao", allocationSize = 1, initialValue = 1)
-public class Leilao {
+public class Leilao extends Base{
 
     private static final long serialVersionUID = 1L;
 
