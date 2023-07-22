@@ -10,53 +10,55 @@ delete from public.tb_usuarios;
 delete from public.tb_empresas;
 delete from public.endereco;
 
+
+
 INSERT INTO public.endereco
-(id, bairro, cep, cidade, complemento, estado, numero, rua_logra, tipo_endereco)
-VALUES(1, 'Fatima', '66060276', 'Belem', 'complemento', 'PA', '1234', 'Vila Militar', null);
+(id, bairro, cep, cidade, complemento, estado, numero, rua_logra, tipo_endereco, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, 'Fatima', '66060276', 'Belem', 'complemento', 'PA', '1234', 'Vila Militar', null, true, 1, null, now(), null);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id)
-VALUES(1, 'Super', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Super Ltda', 'Super Ltda', '91981551702', null);
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, 'Super', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Super Ltda', 'Super Ltda', '91981551702', null, true, 1, null, now(), null);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id)
-VALUES(2, 'Tecnologia', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Siberius Informática Ltda', 'Siberius Informática Ltda', '91981551702', null);
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(2, 'Tecnologia', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Siberius Informática Ltda', 'Siberius Informática Ltda', '91981551702', null, true, 1, null, now(), null);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id)
-VALUES(3, 'Tecnologia2', '56.157.473/0001-52', '15-010062-1', '15-010062-1', 'Siberius2 Informática Ltda', 'Siberius2 Informática Ltda', '91981551702', null);
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(3, 'Tecnologia2', '56.157.473/0001-52', '15-010062-1', '15-010062-1', 'Siberius2 Informática Ltda', 'Siberius2 Informática Ltda', '91981551702', null, true, 1, null, now(), null);
 
 
 INSERT INTO public.tb_usuarios
-(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id)
-VALUES(1, 'admin@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'SUPER_ADMIN', 'superadmin', 1);
+(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, 'admin@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'SUPER_ADMIN', 'superadmin', 1, true, 1, null, now(), null);
 
 INSERT INTO public.tb_usuarios
-(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id)
-VALUES(2, 'jhonnyscerni@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'ADMIN', 'jhonnyscerni', 2);
+(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(2, 'jhonnyscerni@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'ADMIN', 'jhonnyscerni', 2, true, 1, null, now(), null);
 
 
 INSERT INTO public.tb_usuarios
-(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id)
-VALUES(3, 'vendedor@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'VENDEDOR', 'vendedor', 2);
+(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(3, 'vendedor@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'VENDEDOR', 'vendedor', 2, true, 1, null, now(), null);
 
 INSERT INTO public.tb_usuarios
-(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id)
-VALUES(4, 'comprador@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'COMPRADOR', 'comprador', 2);
+(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(4, 'comprador@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'COMPRADOR', 'comprador', 2, true, 1, null, now(), null);
 
 INSERT INTO public.tb_usuarios
-(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id)
-VALUES(5, 'scerni@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'ADMIN', 'scerni', 3);
+(id, email, "password", status_usuario, telefone, tipo_usuario, username, empresa_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(5, 'scerni@gmail.com', '$2y$12$NSsM4gEOR7MKogflKR7GMeYugkttjNhAJMvFdHrBLaLp2HzlggP5W', 'ACTIVE', '91981551702', 'ADMIN', 'scerni', 3, true, 1, null, now(), null);
 
 
-INSERT INTO public.tb_grupos (id,nome) VALUES
-	 (1,'ROLE_SUPER_ADMIN');
-INSERT INTO public.tb_grupos (id,nome) VALUES
-	 (2,'ROLE_ADMIN');
-INSERT INTO public.tb_grupos (id,nome) VALUES
-	 (3,'ROLE_VENDOR');
-INSERT INTO public.tb_grupos (id,nome) VALUES
-	 (4,'ROLE_BUYER');
+INSERT INTO public.tb_grupos (id,nome,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao) VALUES
+	 (1,'ROLE_SUPER_ADMIN', true, 1, null, now(), null);
+INSERT INTO public.tb_grupos (id,nome,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao) VALUES
+	 (2,'ROLE_ADMIN', true, 1, null, now(), null);
+INSERT INTO public.tb_grupos (id,nome,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao) VALUES
+	 (3,'ROLE_VENDOR', true, 1, null, now(), null);
+INSERT INTO public.tb_grupos (id,nome,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao) VALUES
+	 (4,'ROLE_BUYER', true, 1, null, now(), null);
 
 INSERT INTO public.tb_usuarios_grupos (usuario_id,grupo_id) VALUES
 	 (1,1);
@@ -70,27 +72,30 @@ INSERT INTO public.tb_usuarios_grupos (usuario_id,grupo_id) VALUES
 	 (5,2);
 
 INSERT INTO public.categoria_produto
-(id, nome_desc)
-VALUES(1, 'categoria-teste');
+(id, nome_desc,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, 'categoria-teste', true, 1, null, now(), null);
 
 INSERT INTO public.marca_produto
-(id, nome_desc)
-VALUES(1, 'marca-teste');
+(id, nome_desc,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, 'marca-teste', true, 1, null, now(), null);
 
 INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, ativo, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id)
-VALUES(1, true, 0.3, true, 'Produto descricao - COMPRADOR', 0.4, NULL, 'Nome do Produto - COMPRADOR', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 2, 1);
+(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1,true, 0.3, 'Produto descricao - COMPRADOR', 0.4, NULL, 'Nome do Produto - COMPRADOR', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 2, 1, true, 1, null, now(), null);
 
 INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, ativo, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id)
-VALUES(2, true, 0.3, true, 'Produto descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Produto - COMPRADOR 2', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 3, 1);
+(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(2, true, 0.3, 'Produto descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Produto - COMPRADOR 2', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 3, 1, true, 1, null, now(), null);
 
 INSERT INTO public.edital
-(id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id)
-VALUES(1, NULL, NULL, 1, 1, 1, 1);
+(id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(1, NULL, NULL, 1, 1, 1, 1, true, 1, null, now(), null);
 
 INSERT INTO public.edital
-(id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id)
-VALUES(2, NULL, NULL, 1, 3, 1, 1);
+(id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
+VALUES(2, NULL, NULL, 1, 3, 1, 1, true, 1, null, now(), null);
+
+
+
 
 

@@ -50,8 +50,7 @@ public class Produto extends Base implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private Boolean ativo = Boolean.TRUE;
+
 
     @NotNull(message = "Descrição do produto deve ser informada")
     @Column(columnDefinition = "text", length = 2000, nullable = false)
