@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Table(name = "tb_grupos")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_grupo", sequenceName = "seq_grupo", initialValue = 1, allocationSize = 1)
-public class Grupo implements GrantedAuthority, Serializable {
+public class Grupo extends Base implements GrantedAuthority, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_grupo")

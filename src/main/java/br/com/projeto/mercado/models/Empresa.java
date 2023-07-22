@@ -1,6 +1,7 @@
 package br.com.projeto.mercado.models;
 
 import lombok.*;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Table(name = "tb_empresas")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_empresa", sequenceName = "seq_empresa", allocationSize = 1, initialValue = 1)
-public class Empresa {
+public class Empresa extends Base{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_empresa")

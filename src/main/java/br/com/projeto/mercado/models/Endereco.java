@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Table(name = "endereco")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco", allocationSize = 1, initialValue = 1)
-public class Endereco implements Serializable {
+public class Endereco extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
