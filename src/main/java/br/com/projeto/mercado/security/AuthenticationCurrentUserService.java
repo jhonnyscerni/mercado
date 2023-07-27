@@ -32,7 +32,8 @@ public class AuthenticationCurrentUserService {
     public void verifyNoticeIsRoleVendorOrAdmin(EditalFiltro filter) {
         this.getAuthentication().getAuthorities().forEach(
                 grantedAuthority -> {
-                    if ((grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_BUYER.name()))
+                    if ((grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_VENDOR.name()))
+                            ||(grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_BUYER.name()))
                             || (grantedAuthority.getAuthority().equals(TipoGrupo.ROLE_ADMIN.name()))){
                         filter.setEmpresaId(this.getCurrentUser().getEmpresaId());
                     }

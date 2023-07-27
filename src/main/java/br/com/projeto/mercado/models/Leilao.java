@@ -5,7 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class Leilao extends Base{
     @ManyToOne(targetEntity = Usuario.class)
     @JoinColumn(name = "usuario_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "usuario_id_fk"))
-    private Usuario empresa;
+    private Usuario usuario;
 
 
     @ManyToOne(targetEntity = Edital.class)

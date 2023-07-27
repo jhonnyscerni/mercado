@@ -8,7 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

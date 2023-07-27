@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -26,6 +27,10 @@ public class Base{
     private Long codigoUsuarioCriacao;
 
     private Long codigoUsuarioModificacao;
+
+    public Base() {
+        this.criacao = new Date();
+    }
 
     @Override
     public boolean equals(Object o) {

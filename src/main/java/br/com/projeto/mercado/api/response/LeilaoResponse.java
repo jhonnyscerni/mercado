@@ -7,7 +7,7 @@ public class LeilaoResponse {
 
     private Long id;
 
-    private UsuarioResponse empresa;
+    private UsuarioResponse usuario;
 
     private EditalResponse edital;
 }

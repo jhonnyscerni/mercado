@@ -11,4 +11,6 @@ public interface EditalService {
     Page<EditalResponse> search(EditalFiltro filter, Pageable pageable);
 
     Edital buscarOuFalhar(Long id);
+
+    EditalResponse findByIdEditalResponse(Long id);
 }
