@@ -26,4 +26,4 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven testing
-      run: mvn -B clean install --skipTests --file pom.xml
+      run: mvn clean install --skipTests --file pom.xml
