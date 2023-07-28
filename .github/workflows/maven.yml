@@ -30,7 +30,7 @@ jobs:
 #        run: mvn -B test --file pom.xml
 #
   build:
-    needs: tests
+#    needs: tests
     name: Build maven package
     runs-on: ubuntu-latest
 
