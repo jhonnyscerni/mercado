@@ -21,8 +21,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_DB: db
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -38,9 +38,9 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
-        url: jdbc:postgresql://postgres:5432/db
-        user: user
-        password: password
+        url: jdbc:postgresql://postgres:5432/mercado
+        user: postgres
+        password: postgres
       env:
         FLYWAY_VALIDATE_MIGRATION_NAMING: true
     - name: Build with Maven testing
