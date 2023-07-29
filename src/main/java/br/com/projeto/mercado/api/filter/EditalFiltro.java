@@ -9,4 +9,6 @@ public class EditalFiltro {
 
     private Long empresaId;
     private Long numero;
+
+    private boolean meusDados = false;
 }

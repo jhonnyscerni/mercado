@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

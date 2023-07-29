@@ -89,11 +89,11 @@ VALUES(2, true, 0.3, 'Produto descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Prod
 
 INSERT INTO public.edital
 (id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(1, NULL, NULL, 1, 1, 1, 1, true, 1, null, now(), null);
+VALUES(1, NULL, NULL, 1, 2, 1, 1, true, 1, null, now(), null);
 
 INSERT INTO public.edital
 (id, data_fim, data_inicio, numero, empresa_id, endereco_id, produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(2, '2023-07-24 23:44:16.809', '2099-07-24 23:44:16.809', 1, 2, 1, 1, true, 1, null, now(), null);
+VALUES(2, '2023-07-24 23:44:16.809', '2099-07-24 23:44:16.809', 1, 3, 1, 1, true, 1, null, now(), null);
 
 INSERT INTO public.leilao
 (id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, valor_lance, edital_id, usuario_id)
