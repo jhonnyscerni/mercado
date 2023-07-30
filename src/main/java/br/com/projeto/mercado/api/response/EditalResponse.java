@@ -3,6 +3,7 @@ package br.com.projeto.mercado.api.response;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 
 @Data
 public class EditalResponse {
@@ -17,7 +18,7 @@ public class EditalResponse {
 
     private EmpresaResponse empresa;
 
-    private ProdutoResponse produto;
+    private Set<ProdutoResponse> produtos;
 
     private EnderecoResponse endereco;
 

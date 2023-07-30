@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,6 +26,8 @@ public class Edital extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
+    @Column(name = "titulo")
+    private String titulo;
 
     @Column(name = "numero", nullable = false)
     private Long numero;
@@ -39,10 +43,11 @@ public class Edital extends Base implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
     private Empresa empresa;
 
-    @ManyToOne(targetEntity =  Produto.class)
-    @JoinColumn(name = "produto_id", nullable = false,
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "produto_id_fk"))
-    private Produto produto;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "edital_produtos",
+            joinColumns = @JoinColumn(name = "edital_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    private Set<Produto> produtos = new HashSet<>();
 
     @ManyToOne(targetEntity = Endereco.class)
     @JoinColumn(name = "endereco_id", nullable = false,
