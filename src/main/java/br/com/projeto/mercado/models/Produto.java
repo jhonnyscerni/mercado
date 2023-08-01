@@ -42,20 +42,42 @@ public class Produto extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull(message = "O tipo da unidade deve ser informado")
-    @Column(nullable = false)
-    private String tipoUnidade;
+    @NotNull(message = "Código externo do produto")
+    private String codigoExterno;
 
     @Size(min = 10, message = "Nome do produto deve ter mais de 10 letras")
     @NotNull(message = "Nome do produto deve ser informado")
     @Column(nullable = false)
     private String nome;
 
-
-
     @NotNull(message = "Descrição do produto deve ser informada")
     @Column(columnDefinition = "text", length = 2000, nullable = false)
     private String descricao;
+
+    @NotNull(message = "A empresa responsável deve ser informada")
+    @ManyToOne(targetEntity = Empresa.class)
+    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private Empresa empresa;
+
+    @NotNull(message = "A Categoria do Produto deve ser informada")
+    @ManyToOne(targetEntity = CategoriaProduto.class)
+    @JoinColumn(name = "categoria_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_id_fk"))
+    private CategoriaProduto categoriaProduto = new CategoriaProduto();
+
+    @NotNull(message = "A Marca do Produto deve ser informada")
+    @ManyToOne(targetEntity = MarcaProduto.class)
+    @JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
+    private MarcaProduto marcaProduto = new MarcaProduto();
+
+    @OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
+
+    //////////////////////////////////////////// FIM ////////////////////////////////////////////
+
+
+    @NotNull(message = "O tipo da unidade deve ser informado")
+    @Column(nullable = false)
+    private String tipoUnidade;
 
     /** Nota item nota produto - ASSOCIAR **/
 
@@ -90,24 +112,7 @@ public class Produto extends Base implements Serializable {
 
     private Integer qtdeClique = 0;
 
-    @NotNull(message = "A empresa responsável deve ser informada")
-    @ManyToOne(targetEntity = Empresa.class)
-    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
-    private Empresa empresa;
 
-    @NotNull(message = "A Categoria do Produto deve ser informada")
-    @ManyToOne(targetEntity = CategoriaProduto.class)
-    @JoinColumn(name = "categoria_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_id_fk"))
-    private CategoriaProduto categoriaProduto = new CategoriaProduto();
-
-    @NotNull(message = "A Marca do Produto deve ser informada")
-    @ManyToOne(targetEntity = MarcaProduto.class)
-    @JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
-    private MarcaProduto marcaProduto = new MarcaProduto();
-
-
-    @OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
 
 
 }
