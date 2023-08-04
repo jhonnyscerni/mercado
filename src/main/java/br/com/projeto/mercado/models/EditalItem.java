@@ -1,9 +1,25 @@
 package br.com.projeto.mercado.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -42,6 +58,20 @@ public class EditalItem extends Base implements Serializable {
 
     @Column(nullable = false)
     private Boolean propostaParcial = Boolean.FALSE;
-    
+
+    @Column(nullable = false)
+    private Double peso;
+
+    @Column(nullable = false)
+    private Double largura;
+
+    @Column(nullable = false)
+    private Double altura;
+
+    @Column(nullable = false)
+    private Double profundidade;
+
+    @Column(nullable = false)
+    private BigDecimal valorMaximo = BigDecimal.ZERO;
 
 }
