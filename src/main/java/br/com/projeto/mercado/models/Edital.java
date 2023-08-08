@@ -6,20 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
@@ -66,22 +54,13 @@ public class Edital extends Base implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
     private Empresa empresa;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "edital_itens",
-            joinColumns = @JoinColumn(name = "edital_id"),
-            inverseJoinColumns = @JoinColumn(name = "edital_item_id"))
-    private Set<EditalItem> editalItens = new HashSet<>();
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
+    private Set<EditalItem> itens = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "regioes",
-            joinColumns = @JoinColumn(name = "edital_id"),
-            inverseJoinColumns = @JoinColumn(name = "regiao_id"))
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
     private Set<Regiao> regioes = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "formasPagamento",
-            joinColumns = @JoinColumn(name = "edital_id"),
-            inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
     private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
     @ManyToOne(targetEntity = Endereco.class)

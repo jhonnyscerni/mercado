@@ -27,20 +27,19 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "editar_item")
+@Table(name = "edital_item")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @SequenceGenerator(name = "seq_editar_item", sequenceName = "seq_editar_item", initialValue = 1, allocationSize = 1)
 public class EditalItem extends Base implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_unidade_medida")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_editar_item")
     @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false)
     private String especificacao;
 
-    @Column(nullable = false)
     private String observacao;
 
     @ManyToOne(targetEntity = Produto.class)
@@ -53,10 +52,13 @@ public class EditalItem extends Base implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "unidadeMedida_id_fk"))
     private UnidadeMedida unidadeMedida;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Edital edital;
+
     @Column(nullable = false)
     private Double quantidade;
 
-    @Column(nullable = false)
     private Boolean propostaParcial = Boolean.FALSE;
 
     @Column(nullable = false)

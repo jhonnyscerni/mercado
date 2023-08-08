@@ -14,33 +14,13 @@ public class ProdutoResponse {
 
     private Long id;
 
-    private String tipoUnidade;
+    private String codigoExterno;
 
     private String nome;
 
-    private Boolean ativo;
+    //private Boolean ativo;
 
     private String descricao;
-
-    private Double peso; /* 1000.55 G */
-
-    private Double largura;
-
-    private Double altura;
-
-    private Double profundidade;
-
-    private BigDecimal valorVenda = BigDecimal.ZERO;
-
-    private Integer qtdEstoque = 0;
-
-    private Integer qtdeAlertaEstoque = 0;
-
-    private String linkYoutube;
-
-    private Boolean alertaQtdeEstoque = Boolean.FALSE;
-
-    private Integer qtdeClique = 0;
 
     private Empresa empresa;
 

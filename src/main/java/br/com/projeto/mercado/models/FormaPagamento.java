@@ -1,9 +1,11 @@
 package br.com.projeto.mercado.models;
 
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -23,5 +25,12 @@ public class FormaPagamento extends Base implements Serializable {
 
     @Column(nullable = false, length = 60)
     private String descricao;
+
+    @UpdateTimestamp
+    private OffsetDateTime dataAtualizacao;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Edital edital;
 
 }

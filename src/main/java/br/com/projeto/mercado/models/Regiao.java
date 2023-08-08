@@ -24,4 +24,8 @@ public class Regiao extends Base implements Serializable {
     @Column(nullable = false, length = 630)
     private String descricao;
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Edital edital;
+
 }
