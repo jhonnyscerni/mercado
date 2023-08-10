@@ -12,6 +12,8 @@ import br.com.projeto.mercado.repositories.EmpresaRepository;
 import br.com.projeto.mercado.repositories.ProdutoRepository;
 import br.com.projeto.mercado.repositories.specs.ProdutoSpecification;
 import br.com.projeto.mercado.security.AuthenticationCurrentUserService;
+import br.com.projeto.mercado.service.CategoriaProdutoService;
+import br.com.projeto.mercado.service.MarcaProdutoService;
 import br.com.projeto.mercado.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final ProdutoMapper produtoMapper;
     private final AuthenticationCurrentUserService authenticationCurrentUserService;
     private final EmpresaRepository empresaRepository;
+    private final CategoriaProdutoService categoriaProdutoService;
+    private final MarcaProdutoService marcaProdutoService;
 
     @Override
     public Page<ProdutoResponse> search(ProdutoFiltro filter, Pageable pageable) {
@@ -77,9 +81,13 @@ public class ProdutoServiceImpl implements ProdutoService {
         Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
         Empresa empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + empresaId));
-        produtoRequest.setEmpresa(empresa);
 
         Produto produto = produtoMapper.resquestToEntity(produtoRequest);
+        produto.setEmpresa(empresa);
+
+        produto.setCategoriaProduto(categoriaProdutoService.buscarOuFalhar(produtoRequest.getCategoriaId()));
+        produto.setMarcaProduto(marcaProdutoService.buscarOuFalhar(produtoRequest.getMarcaId()));
+
 
         produto = produtoRepository.save(produto);
         log.debug("POST save produtoId saved {} ", produto.getId());
@@ -98,9 +106,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         Empresa empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + empresaId));
 
-        produtoRequest.setEmpresa(empresa);
-
         produtoMapper.update(produto, produtoRequest);
+        produto.setEmpresa(empresa);
+        produto.setCategoriaProduto(categoriaProdutoService.buscarOuFalhar(produtoRequest.getCategoriaId()));
+        produto.setMarcaProduto(marcaProdutoService.buscarOuFalhar(produtoRequest.getMarcaId()));
 
         Produto save = produtoRepository.save(produto);
         log.debug("PUT update produtoId saved {} ", produto.getId());
