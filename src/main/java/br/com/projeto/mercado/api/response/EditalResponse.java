@@ -25,7 +25,7 @@ public class EditalResponse {
 
     private EmpresaResponse empresa;
 
-    private Set<EditalItemResponse> editalItens;
+    private Set<EditalItemResponse> itens;
 
     private Set<RegiaoResponse> regioes = new HashSet<>();
 
