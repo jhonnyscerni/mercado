@@ -1,5 +1,8 @@
-delete from public.edital_produtos;
 delete from public.leilao;
+delete from public.edital_item;
+delete from public.unidade_medida;
+delete from public.regiao;
+delete from public.forma_pagamento;
 delete from public.edital;
 delete from public.imagem_produto;
 delete from public.produto;
@@ -80,47 +83,81 @@ INSERT INTO public.marca_produto
 (id, nome_desc,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
 VALUES(1, 'marca-teste', true, 1, null, now(), null);
 
-INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(1,true, 0.3, 'Produto descricao - COMPRADOR', 0.4, NULL, 'Nome do Produto - COMPRADOR', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 2, 1, true, 1, null, now(), null);
+INSERT INTO public.unidade_medida
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, nome, descricao)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 'nome unidade de medida teste', 'unidade de medida teste');
 
 INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(2, true, 0.3, 'Produto descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Produto - COMPRADOR 2', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 3, 1, true, 1, null, now(), null);
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, codigo_externo, descricao, nome, categoria_produto_id, empresa_id, marca_produto_id)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, '123', 'Produto 1 descricao Empresa 2', 'Produto 1 descricao Empresa 2', 1, 2, 1);
 
 INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(3, true, 0.3, 'Produto 2 descricao - COMPRADOR 2', 0.4, NULL, 'Nome do Produto 2 - - COMPRADOR 2', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 3, 1, true, 1, null, now(), null);
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, codigo_externo, descricao, nome, categoria_produto_id, empresa_id, marca_produto_id)
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, '123', 'Produto 2 descricao Empresa 2', 'Produto 2 descricao Empresa 2', 1, 2, 1);
 
 INSERT INTO public.produto
-(id, alerta_qtde_estoque, altura, descricao, largura, link_youtube, nome, peso, profundidade, qtd_estoque, qtde_alerta_estoque, qtde_clique, tipo_unidade, valor_venda, categoria_produto_id, empresa_id, marca_produto_id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(4,true, 0.3, 'Produto 2 descricao - COMPRADOR', 0.4, NULL, 'Nome do Produto 2 - COMPRADOR', 100.0, 50.0, 10, NULL, NULL, 'cm', 10.00, 1, 2, 1, true, 1, null, now(), null);
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, codigo_externo, descricao, nome, categoria_produto_id, empresa_id, marca_produto_id)
+VALUES(3, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, '123', 'Produto 1 descricao Empresa 3', 'Produto 1 descricao Empresa 3', 1, 3, 1);
 
+INSERT INTO public.produto
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, codigo_externo, descricao, nome, categoria_produto_id, empresa_id, marca_produto_id)
+VALUES(4, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, '123', 'Produto 2 descricao Empresa 3', 'Produto 2 descricao Empresa 3', 1, 3, 1);
 
---edital =  1 e da empresa 2  | o produto da empresa 2 e produtoId = 1
 INSERT INTO public.edital
-(id, titulo, data_fim, data_inicio, numero, empresa_id, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(1, 'Titulo EDITAL',  NULL, NULL, 1, 2, 1, true, 1, null, now(), null);
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_exibe, data_fim, data_inicio, numero, tempo_maximo_entrega, titulo, empresa_id, endereco_id)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, NULL, 123, NULL, 'Edital 1 Empresa 2 ', 2, 1);
 
-INSERT INTO public.edital_produtos
-(edital_id, produto_id) VALUES(1, 1);
-INSERT INTO public.edital_produtos
-(edital_id, produto_id) VALUES(1, 4);
+-- REFERENTE AO EDITAL 1
+INSERT INTO public.forma_pagamento
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_atualizacao, nome, descricao, edital_id)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, 'NOME-PIX', 'PIX', 1);
 
---edital =  2 e da empresa 3 | o produtos da empresa 3 e produtoId = 2
+INSERT INTO public.forma_pagamento
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_atualizacao, nome, descricao, edital_id)
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, 'NOME-CARTO', 'CARTAO', 1);
+
+INSERT INTO public.regiao
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, nome, descricao, edital_id)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 'NOME-NORTE', 'NORTE', 1);
+
+INSERT INTO public.edital_item
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, altura, especificacao, largura, observacao, peso, profundidade, proposta_parcial, quantidade, valor_maximo, edital_id, produto_id, unidade_medida_id)
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 10.0, 'especificacao teste', 10.0, 'obs', 10.0, 10.0, false, 10.0, 100, 1, 2, 1);
+
+---------------------------------------------------------------------------
+
 INSERT INTO public.edital
-(id, data_fim, data_inicio, numero, empresa_id, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(2, '2023-07-24 23:44:16.809', '2099-07-24 23:44:16.809', 1, 3, 1,  true, 1, null, now(), null);
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_exibe, data_fim, data_inicio, numero, tempo_maximo_entrega, titulo, empresa_id, endereco_id)
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, NULL, 123, NULL, 'Edital 1 Empresa 3 ', 3, 1);
 
-INSERT INTO public.edital_produtos
-(edital_id, produto_id) VALUES(2, 2);
 
-INSERT INTO public.edital_produtos
-(edital_id, produto_id) VALUES(2, 3);
+-- REFERENTE AO EDITAL 2
+INSERT INTO public.forma_pagamento
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_atualizacao, nome, descricao, edital_id)
+VALUES(3, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, 'NOME-PIX', 'PIX', 2);
+
+INSERT INTO public.forma_pagamento
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_atualizacao, nome, descricao, edital_id)
+VALUES(4, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, 'NOME-CARTO', 'CARTAO', 2);
+
+INSERT INTO public.regiao
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, nome, descricao, edital_id)
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 'NOME-NORTE', 'NORTE', 2);
+
+INSERT INTO public.edital_item
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, altura, especificacao, largura, observacao, peso, profundidade, proposta_parcial, quantidade, valor_maximo, edital_id, produto_id, unidade_medida_id)
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 10.0, 'especificacao teste', 10.0, 'obs', 10.0, 10.0, false, 10.0, 100, 2, 3, 1);
+
+INSERT INTO public.edital_item
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, altura, especificacao, largura, observacao, peso, profundidade, proposta_parcial, quantidade, valor_maximo, edital_id, produto_id, unidade_medida_id)
+VALUES(3, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 10.0, 'especificacao teste', 10.0, 'obs', 10.0, 10.0, false, 10.0, 100, 2, 4, 1);
+
+---------------------------------------------------------------------------
 
 INSERT INTO public.leilao
 (id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, valor_lance, edital_id, usuario_id)
-VALUES(1, true, 2, 2, '2023-07-24 23:44:16.809', NULL, 10.00, 2, 2);
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 10.00, 1, 2);
+
 
 
 

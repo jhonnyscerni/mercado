@@ -1,6 +1,11 @@
 package br.com.projeto.mercado.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,20 +43,32 @@ public class Edital extends Base implements Serializable {
     @Column(name = "data_fim")
     private OffsetDateTime dataFim;
 
+    @Column(name = "data_exibe")
+    private OffsetDateTime dataExibicao;
+
+    @Column(name = "tempo_maximo_entrega")
+    private Long tempoMaximoEntrega;
+
     @ManyToOne(targetEntity = Empresa.class)
     @JoinColumn(name = "empresa_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
     private Empresa empresa;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "edital_produtos",
-            joinColumns = @JoinColumn(name = "edital_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id"))
-    private Set<Produto> produtos = new HashSet<>();
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
+    private Set<EditalItem> itens = new HashSet<>();
+
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
+    private Set<Regiao> regioes = new HashSet<>();
+
+    @OneToMany(mappedBy = "edital", cascade = CascadeType.ALL)
+    private Set<FormaPagamento> formasPagamento = new HashSet<>();
 
     @ManyToOne(targetEntity = Endereco.class)
     @JoinColumn(name = "endereco_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_id_fk"))
     private Endereco endereco;
+
+    //TODO. criar parametro para definição de critério de vencedor
+    //private CriterioVencedor criterioVencedor
 
 }

@@ -3,7 +3,6 @@ package br.com.projeto.mercado.models;
 import br.com.projeto.mercado.models.enums.StatusUsuario;
 import br.com.projeto.mercado.models.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;

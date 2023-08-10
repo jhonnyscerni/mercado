@@ -42,53 +42,17 @@ public class Produto extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull(message = "O tipo da unidade deve ser informado")
-    @Column(nullable = false)
-    private String tipoUnidade;
+    @NotNull(message = "Código externo do produto")
+    private String codigoExterno;
 
     @Size(min = 10, message = "Nome do produto deve ter mais de 10 letras")
     @NotNull(message = "Nome do produto deve ser informado")
     @Column(nullable = false)
     private String nome;
 
-
-
     @NotNull(message = "Descrição do produto deve ser informada")
     @Column(columnDefinition = "text", length = 2000, nullable = false)
     private String descricao;
-
-    /** Nota item nota produto - ASSOCIAR **/
-
-    @NotNull(message = "Peso deve ser informado")
-    @Column(nullable = false)
-    private Double peso; /* 1000.55 G */
-
-    @NotNull(message = "Largura deve ser informado")
-    @Column(nullable = false)
-    private Double largura;
-
-    @NotNull(message = "Altura deve ser informado")
-    @Column(nullable = false)
-    private Double altura;
-
-    @NotNull(message = "Profundidade")
-    @Column(nullable = false)
-    private Double profundidade;
-
-    @NotNull(message = "Valor de venda deve ser informado")
-    @Column(nullable = false)
-    private BigDecimal valorVenda = BigDecimal.ZERO;
-
-    @Column(nullable = false)
-    private Integer qtdEstoque = 0;
-
-    private Integer qtdeAlertaEstoque = 0;
-
-    private String linkYoutube;
-
-    private Boolean alertaQtdeEstoque = Boolean.FALSE;
-
-    private Integer qtdeClique = 0;
 
     @NotNull(message = "A empresa responsável deve ser informada")
     @ManyToOne(targetEntity = Empresa.class)
@@ -105,9 +69,7 @@ public class Produto extends Base implements Serializable {
     @JoinColumn(name = "marca_produto_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_id_fk"))
     private MarcaProduto marcaProduto = new MarcaProduto();
 
-
     @OneToMany(mappedBy = "produto", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ImagemProduto> imagens = new ArrayList<ImagemProduto>();
-
 
 }
