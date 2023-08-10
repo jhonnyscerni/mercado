@@ -1,17 +1,19 @@
 package br.com.projeto.mercado.service.impl;
 
 import br.com.projeto.mercado.api.filter.ProdutoFiltro;
+import br.com.projeto.mercado.api.request.ProdutoRequest;
 import br.com.projeto.mercado.api.response.ProdutoResponse;
-import br.com.projeto.mercado.models.Grupo;
+import br.com.projeto.mercado.models.Empresa;
 import br.com.projeto.mercado.models.Produto;
-import br.com.projeto.mercado.models.Usuario;
-import br.com.projeto.mercado.models.enums.TipoGrupo;
 import br.com.projeto.mercado.models.exceptions.EntityInUseException;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.ProdutoMapper;
+import br.com.projeto.mercado.repositories.EmpresaRepository;
 import br.com.projeto.mercado.repositories.ProdutoRepository;
 import br.com.projeto.mercado.repositories.specs.ProdutoSpecification;
 import br.com.projeto.mercado.security.AuthenticationCurrentUserService;
+import br.com.projeto.mercado.service.CategoriaProdutoService;
+import br.com.projeto.mercado.service.MarcaProdutoService;
 import br.com.projeto.mercado.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
     private final AuthenticationCurrentUserService authenticationCurrentUserService;
+    private final EmpresaRepository empresaRepository;
+    private final CategoriaProdutoService categoriaProdutoService;
+    private final MarcaProdutoService marcaProdutoService;
 
     @Override
     public Page<ProdutoResponse> search(ProdutoFiltro filter, Pageable pageable) {
@@ -60,7 +65,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto buscarOuFalhar(Long id) {
         log.debug("GET id received {} ", id.toString());
         return produtoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: "+ id));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + id));
     }
 
     @Override
@@ -68,6 +73,48 @@ public class ProdutoServiceImpl implements ProdutoService {
         log.debug("GET UserResponse Long id received {} ", id.toString());
         Produto produto = buscarOuFalhar(id);
         return produtoMapper.toResponse(produto);
+    }
+
+    @Override
+    public ProdutoResponse save(ProdutoRequest produtoRequest) {
+
+        Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + empresaId));
+
+        Produto produto = produtoMapper.resquestToEntity(produtoRequest);
+        produto.setEmpresa(empresa);
+
+        produto.setCategoriaProduto(categoriaProdutoService.buscarOuFalhar(produtoRequest.getCategoriaId()));
+        produto.setMarcaProduto(marcaProdutoService.buscarOuFalhar(produtoRequest.getMarcaId()));
+
+
+        produto = produtoRepository.save(produto);
+        log.debug("POST save produtoId saved {} ", produto.getId());
+        log.info("User saved successfully produtoId {} ", produto.getId());
+
+        return produtoMapper.toResponse(produto);
+    }
+
+    @Override
+    public ProdutoResponse update(Long id, ProdutoRequest produtoRequest) {
+        log.debug("PUT id received {} ", id.toString());
+        log.debug("PUT ProdutoRequest produtoRequest received {} ", produtoRequest.toString());
+        Produto produto = buscarOuFalhar(id);
+
+        Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + empresaId));
+
+        produtoMapper.update(produto, produtoRequest);
+        produto.setEmpresa(empresa);
+        produto.setCategoriaProduto(categoriaProdutoService.buscarOuFalhar(produtoRequest.getCategoriaId()));
+        produto.setMarcaProduto(marcaProdutoService.buscarOuFalhar(produtoRequest.getMarcaId()));
+
+        Produto save = produtoRepository.save(produto);
+        log.debug("PUT update produtoId saved {} ", produto.getId());
+        log.info("User update successfully produtoId {} ", produto.getId());
+        return produtoMapper.toResponse(save);
     }
 
 }
