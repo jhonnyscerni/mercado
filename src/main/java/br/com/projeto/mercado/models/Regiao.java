@@ -3,6 +3,7 @@ package br.com.projeto.mercado.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -21,7 +22,11 @@ public class Regiao extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false, length = 630)
+    @NotNull(message = "Informa o nome da Regiao")
+    @Column(nullable = false)
+    private String nome;
+
+    @Column
     private String descricao;
 
     @ManyToOne

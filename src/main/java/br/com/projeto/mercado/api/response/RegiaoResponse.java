@@ -7,5 +7,7 @@ public class RegiaoResponse {
 
     private Long id;
 
+    private Long nome;
+
     private String descricao;
 }

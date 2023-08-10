@@ -7,5 +7,7 @@ public class FormaPagamentoResponse {
 
     private Long id;
 
+    private String nome;
+
     private String descricao;
 }

@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
@@ -23,7 +24,11 @@ public class FormaPagamento extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false, length = 60)
+    @NotNull(message = "Informa o nome da forma de Pagamento")
+    @Column(nullable = false)
+    private String nome;
+
+    @Column
     private String descricao;
 
     @UpdateTimestamp

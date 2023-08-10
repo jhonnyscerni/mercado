@@ -3,6 +3,7 @@ package br.com.projeto.mercado.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
@@ -20,6 +21,10 @@ public class UnidadeMedida extends Base implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_unidade_medida")
     @EqualsAndHashCode.Include
     private Long id;
+
+    @NotNull(message = "Informa o nome da Unidade de Medida")
+    @Column(nullable = false)
+    private String nome;
 
     @Column(nullable = false, length = 60)
     private String descricao;
