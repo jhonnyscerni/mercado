@@ -46,7 +46,7 @@ public class Empresa extends Base{
     @OneToMany(mappedBy = "empresa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Usuario> usuarios = new ArrayList<Usuario>();
 
-    @ManyToOne(targetEntity = Endereco.class, cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Endereco.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id",
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_id_fk"))
     private Endereco endereco = new Endereco();
