@@ -3,7 +3,9 @@ package br.com.projeto.mercado.api.controllers;
 import br.com.projeto.mercado.api.filter.EditalFiltro;
 import br.com.projeto.mercado.api.request.EditalRequest;
 import br.com.projeto.mercado.api.request.ProdutoRequest;
+import br.com.projeto.mercado.api.request.UsuarioRequest;
 import br.com.projeto.mercado.api.response.EditalResponse;
+import br.com.projeto.mercado.api.response.UsuarioResponse;
 import br.com.projeto.mercado.service.EditalService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,12 @@ public class EditalController {
     @PostMapping
     public ResponseEntity<EditalResponse> registrar(@RequestBody @Valid EditalRequest editalRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(editalService.save(editalRequest));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EditalResponse> atualizar(@PathVariable Long id,
+                                                     @RequestBody @Valid EditalRequest editalRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(editalService.update(id, editalRequest));
     }
 
     @GetMapping("/{id}")

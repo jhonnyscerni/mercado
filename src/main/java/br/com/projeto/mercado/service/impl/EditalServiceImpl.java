@@ -5,6 +5,7 @@ import br.com.projeto.mercado.api.request.EditalRequest;
 import br.com.projeto.mercado.api.response.EditalResponse;
 import br.com.projeto.mercado.models.Edital;
 import br.com.projeto.mercado.models.Empresa;
+import br.com.projeto.mercado.models.Produto;
 import br.com.projeto.mercado.models.exceptions.EntityNotFoundException;
 import br.com.projeto.mercado.models.mapper.EditalMapper;
 import br.com.projeto.mercado.repositories.EditalRepository;
@@ -65,5 +66,25 @@ public class EditalServiceImpl implements EditalService {
         log.info("User saved successfully editalID {} ", edital.getId());
 
         return editalMapper.toResponse(edital);
+    }
+
+    @Override
+    public EditalResponse update(Long id, EditalRequest editalRequest) {
+        log.debug("PUT id received {} ", id.toString());
+        log.debug("PUT EditalRequest editalRequest received {} ", editalRequest.toString());
+        Edital edital = buscarOuFalhar(id);
+
+        Long empresaId = authenticationCurrentUserService.getCurrentUser().getEmpresaId();
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um cadastro com id: " + empresaId));
+
+        editalMapper.update(edital, editalRequest);
+        edital.setEmpresa(empresa);
+        edital.setEndereco(empresa.getEndereco());
+
+        Edital save = editalRepository.save(edital);
+        log.debug("PUT update editalId saved {} ", edital.getId());
+        log.info("User update successfully editalId {} ", edital.getId());
+        return editalMapper.toResponse(save);
     }
 }

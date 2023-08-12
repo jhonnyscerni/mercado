@@ -16,4 +16,6 @@ public interface EditalService {
     EditalResponse findByIdEditalResponse(Long id);
 
     EditalResponse save(EditalRequest editalRequest);
+
+    EditalResponse update(Long id, EditalRequest editalRequest);
 }
