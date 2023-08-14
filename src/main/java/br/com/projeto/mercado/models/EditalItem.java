@@ -37,7 +37,6 @@ public class EditalItem extends Base implements Serializable {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false)
     private String especificacao;
 
     private String observacao;
