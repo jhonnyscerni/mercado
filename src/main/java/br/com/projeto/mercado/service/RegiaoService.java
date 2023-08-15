@@ -7,4 +7,6 @@ import java.util.List;
 public interface RegiaoService {
 
     List<RegiaoResponse> search(Long editalId);
+
+    List<RegiaoResponse> findAll();
 }

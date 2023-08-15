@@ -7,4 +7,6 @@ import java.util.List;
 public interface FormaPagamentoService {
 
     List<FormaPagamentoResponse> search(Long editalId);
+
+    List<FormaPagamentoResponse> findAll();
 }
