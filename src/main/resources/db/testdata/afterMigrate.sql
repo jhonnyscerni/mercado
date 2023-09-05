@@ -105,7 +105,7 @@ VALUES(4, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, '123', 'Produto 2 d
 
 INSERT INTO public.edital
 (id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_exibe, data_fim, data_inicio, numero, tempo_maximo_entrega, titulo, empresa_id, endereco_id)
-VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, NULL, 123, NULL, 'Edital 1 Empresa 2 ', 2, 1);
+VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, '2023-07-24 23:44:16.809', 123, NULL, 'Edital 1 Empresa 2 - Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI  ', 2, 1);
 
 -- REFERENTE AO EDITAL 1
 INSERT INTO public.forma_pagamento
@@ -128,7 +128,7 @@ VALUES(1, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, 10.0, 'especificaca
 
 INSERT INTO public.edital
 (id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, data_exibe, data_fim, data_inicio, numero, tempo_maximo_entrega, titulo, empresa_id, endereco_id)
-VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, NULL, 123, NULL, 'Edital 1 Empresa 3 ', 3, 1);
+VALUES(2, true, NULL, NULL, '2023-07-24 23:44:16.809', NULL, NULL, NULL, '2023-07-24 23:44:16.809', 123, NULL, 'Edital 2 Empresa 3 - Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI ', 3, 1);
 
 
 -- REFERENTE AO EDITAL 2
