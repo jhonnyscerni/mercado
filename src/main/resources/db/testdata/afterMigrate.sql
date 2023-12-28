@@ -1,4 +1,5 @@
 delete from public.leilao;
+delete from public.edital_arquivo;
 delete from public.edital_item;
 delete from public.unidade_medida;
 delete from public.regiao;
