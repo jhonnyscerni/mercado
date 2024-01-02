@@ -20,7 +20,7 @@ public class StorageConfig {
     private StorageProperties storageProperties;
 
     @Bean
-    @ConditionalOnProperty(name = "siberius.storage.tipo", havingValue = "s3")
+    @ConditionalOnProperty(name = "projeto.storage.tipo", havingValue = "s3")
     public AmazonS3 amazonS3() {
         BasicAWSCredentials credentials = new BasicAWSCredentials(
             storageProperties.getS3().getIdChaveAcesso(),
