@@ -31,6 +31,6 @@ jobs:
       - name: Pull Image from docker hub
         run: sudo docker pull jhonnyscerni/mercado-negocios:latest
       - name: Delete old container
-        run: sudo docker rm -f /mercado-negocios-container
+        run: sudo docker rm -f /mercado-negocios
       - name: Run docker container
-        run: sudo docker run -d -p 8080:8080 --name mercado-negocios-container jhonnyscerni/mercado-negocios
+        run: sudo docker run -d -p 8080:8080 --name mercado-negocios jhonnyscerni/mercado-negocios
