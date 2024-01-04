@@ -1,5 +1,5 @@
-FROM postgres:12
-
-RUN localedef -i pt_BR -c -f UTF-8 -A /usr/share/locale/locale.alias pt_BR.utf-8
-
-ENV LANG pt_BR.UTF-8
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY target/mercado-0.0.1-SNAPSHOT.jar mercado.jar
+EXPOSE 8080
+CMD ["java","-jar","mercado.jar"]

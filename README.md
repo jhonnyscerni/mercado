@@ -65,3 +65,38 @@
 #### - Painel de Marca de Produtos
 #### - Produtos
 #### - Editais
+
+
+----------------------------
+CI/CD
+
+1 - Criar o VPC
+2 - Criar o https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#SecurityGroups: associando o VPC criado
+e liberando a porta 8080 e ssh para entrado do cluster
+
+3 - Configurar ssh
+- ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+- cat ~/.ssh/id_rsa.pub
+
+No servico de aws em pares de chaves
+  https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#KeyPairs:
+
+apos isso importar o par de chaves
+
+  https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#ImportKeyPair:
+
+4 - criar a intancia
+https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#LaunchInstances:
+
+ - Selecionar o par de chaves que criamos e a VPC
+ - Subnet escolher uma publica
+ - Atribuir IP público automaticamente - true
+ - Grupos de segurança comuns Informações selecionar o criado
+ - 
+5 - Conectar  na maquina ec2
+   ssh ec2-user@ec2-18-221-145-78.us-east-2.compute.amazonaws.com
+
+--------------------------------------------------------------------------------------------------------------------
+
+Creditos
+https://www.youtube.com/watch?v=bEkCdlrxF54
