@@ -55,6 +55,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: mercado-negocios-service
+          service: mercado-negocios-service-1
           cluster: mercadoNegocios
           wait-for-service-stability: true
