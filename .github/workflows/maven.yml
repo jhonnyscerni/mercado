@@ -9,9 +9,9 @@
 name: Pipeline
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "build" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "build" ]
 
 jobs:
 #  tests:

@@ -13,8 +13,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: 'adopt'
+          java-version: '11'
       - name: Build Project
         run: mvn clean install -DskipTests
       - name: Login to docker hub
@@ -29,8 +29,8 @@ jobs:
     runs-on: [aws-ec2]
     steps:
       - name: Pull Image from docker hub
-        run: docker pull jhonnyscerni/mercado-negocios:latest
+        run: sudo docker pull jhonnyscerni/mercado-negocios:latest
       - name: Delete old container
-        run: docker rm -f /mercado-negocios-container
+        run: sudo docker rm -f /mercado-negocios
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name mercado-negocios-container jhonnyscerni/mercado-negocios
+        run: sudo docker run -d -p 8080:8080 --name mercado-negocios jhonnyscerni/mercado-negocios

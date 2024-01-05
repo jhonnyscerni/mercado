@@ -12,8 +12,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: 'adopt'
+          java-version: '11'
 
       - name: Build Project
         run: mvn clean install -DskipTests
@@ -21,44 +21,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}name: CICD
-
-on:
-  push:
-    branches: [deploy-to-ec2]
-
-jobs:
-  build:
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - name: Build Project
-        run: mvn clean install -DskipTests
-      - name: Login to docker hub
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Build docker image
-        run: docker build -t integrationninjas/springboot-example .
-      - name: Publish image to docker hub
-        run: docker push integrationninjas/springboot-example:latest
-
-  deploy:
-    needs: build
-    runs-on: [aws-ec2]
-    steps:
-      - name: Pull Image from docker hub
-        run: docker pull integrationninjas/springboot-example:latest
-      - name: Delete old container
-        run: docker rm -f springboot-example-container
-      - name: Run docker container
-        run: docker run -d -p 8080:8080 --name springboot-example-container integrationninjas/springboot-example
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'eu-north-1'
+          aws-region: 'us-east-2'
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -71,7 +36,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-          REPOSITORY: springboot-example
+          REPOSITORY: mercado-negocios
         run: |
           # Build a docker container and
           # push it to ECR so that it can
@@ -83,13 +48,13 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: springboot-app-task-definition.json
-          container-name: springboot-example
+          task-definition: task-mercado-negocios.json
+          container-name: mercado-negocios
           image: ${{ steps.build-image.outputs.image }}
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: springboot-example-service
-          cluster: DevCluster2
+          service: mercado-negocios-service-1
+          cluster: mercadoNegocios
           wait-for-service-stability: true
