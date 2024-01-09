@@ -32,4 +32,8 @@ public class UsuarioResponse {
 
     private Set<GrupoResponse> grupos;
 
+    private String nome;
+
+    private String cpf;
+
 }
