@@ -45,7 +45,7 @@ public class Produto extends Base implements Serializable {
     @NotNull(message = "Código externo do produto")
     private String codigoExterno;
 
-    @Size(message = "Nome do produto deve ter mais de 10 letras")
+    @Size(message = "Nome do produto deve ter mais de 10 letras", min = 10)
     @NotNull(message = "Nome do produto deve ser informado")
     @Column(nullable = false)
     private String nome;

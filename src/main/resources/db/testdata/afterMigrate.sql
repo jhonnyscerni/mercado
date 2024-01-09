@@ -14,16 +14,15 @@ delete from public.tb_grupos;
 delete from public.tb_usuarios;
 delete from public.tb_empresas;
 delete from public.endereco;
-
-
+delete from public.area_interesse;
 
 INSERT INTO public.endereco
 (id, bairro, cep, cidade, complemento, estado, numero, rua_logra, tipo_endereco, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
 VALUES(1, 'Fatima', '66060276', 'Belem', 'complemento', 'PA', '1234', 'Vila Militar', null, true, 1, null, now(), null);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
-VALUES(1, 'Super', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Super Ltda', 'Super Ltda', '91981551702', 1, true, 1, null, now(), null);
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_reponsavel, telefone_responsavel, area_interesse_id)
+VALUES(1, 'Super', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Super Ltda', 'Super Ltda', '91981551702', 1, true, 1, null, now(), null, 'wnbaldez@gmail.com', 'www.devoffice.com.br', 'Baldez', '91981715951',1);
 
 INSERT INTO public.tb_empresas
 (id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
@@ -32,6 +31,10 @@ VALUES(2, 'Tecnologia', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Sib
 INSERT INTO public.tb_empresas
 (id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao)
 VALUES(3, 'Tecnologia2', '56.157.473/0001-52', '15-010062-1', '15-010062-1', 'Siberius2 Informática Ltda', 'Siberius2 Informática Ltda', '91981551702', 1, true, 1, null, now(), null);
+
+INSERT INTO public.area_interesse
+(id, ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, descricao, nome)
+VALUES(1,true, 1, null, '2024-01-08', null, 'TECNOLOGIA', 'SOFTWARE');
 
 
 INSERT INTO public.tb_usuarios
