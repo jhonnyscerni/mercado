@@ -22,11 +22,12 @@ public class JwtProvider {
     private int jwtExpirationMs;
 
     public String generateJwt(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         Collection<? extends GrantedAuthority> authorities = userPrincipal.getAuthorities();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                .setId(userPrincipal.getUserId().toString())
                 .claim("authorities", authorities)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))

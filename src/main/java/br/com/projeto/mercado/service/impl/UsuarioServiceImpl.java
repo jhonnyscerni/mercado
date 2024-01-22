@@ -100,6 +100,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         log.debug("POST registerUser userId saved {} ", usuario.getId());
         log.info("User saved successfully userId {} ", usuario.getId());
 
+        emailService.sendWelcome(usuario);
+        log.info("Mail send successfully save user: " + usuario.getUsername());
+
         return usuarioMapper.toResponse(usuario);
 
     }

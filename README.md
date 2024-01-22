@@ -1,5 +1,37 @@
 # mercado
 
+Cadastro de usuario 
+
+curl --location --request POST 'http://localhost:8080/mercado/auth/signup?tipoUsuario=ADMIN' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"id":"",
+"username":"test",
+"email":"jhonscerni@gmail.com",
+"telefone":"(12) 31231-2312",
+"password":"123",
+"roles":"",
+"empresa":{
+"razaoSocial":"test",
+"nomeFantasia":"test",
+"cnpj":"79.911.716/0001-09",
+"inscEstadual":"123123",
+"inscMunicipal":"123123",
+"categoria":"",
+"email":"jhonscerni@gmail.com",
+"telefone":"(12) 3131-2312",
+"endereco":{
+"cep":"66615-005",
+"ruaLogra":"test",
+"numero":"123",
+"complemento":"test",
+"bairro":"test",
+"cidade":"test",
+"estado":"test"
+}
+}
+}'
+
 
 ### Usuarios
 

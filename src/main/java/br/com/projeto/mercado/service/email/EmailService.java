@@ -18,6 +18,16 @@ public class EmailService {
                 .variavel("novaSenha", usuario.getPassword())
                 .destinatario(usuario.getEmail())
                 .build();
-        envioEmailService.enviar(mensagem, SmtpTipoEnvioEmail.SIMPLES);
+        envioEmailService.enviar(mensagem, SmtpTipoEnvioEmail.FREEMARKER);
+    }
+
+    public void sendWelcome(Usuario usuario) {
+        EnvioEmailService.Mensagem mensagem = EnvioEmailService.Mensagem.builder()
+                .assunto(usuario.getEmpresa().getNomeFantasia() + " - Seja Bem vindo(a) ao Mercado e Negocios")
+                .corpo("modelo-bem-vindo.html")
+                .variavel("usuario", usuario)
+                .destinatario(usuario.getEmail())
+                .build();
+        envioEmailService.enviar(mensagem, SmtpTipoEnvioEmail.FREEMARKER);
     }
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties("jwt.email")
+@ConfigurationProperties("mercado.email")
 public class EmailProperties {
 
     // Atribuimos FAKE como padrão
