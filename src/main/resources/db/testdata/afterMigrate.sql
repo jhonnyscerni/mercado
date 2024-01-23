@@ -25,15 +25,15 @@ INSERT INTO public.area_interesse
 VALUES(1,true, 1, null, '2024-01-08', null, 'TECNOLOGIA', 'SOFTWARE');
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_reponsavel, telefone_responsavel, area_interesse_id)
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_responsavel, telefone_responsavel, area_interesse_id)
 VALUES(1, 'Super', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Super Ltda', 'Super Ltda', '91981551702', 1, true, 1, null, now(), null, 'wnbaldez@gmail.com', 'www.devoffice.com.br', 'Baldez', '91981715951',1);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_reponsavel, telefone_responsavel, area_interesse_id)
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_responsavel, telefone_responsavel, area_interesse_id)
 VALUES(2, 'Tecnologia', '56.157.473/0001-51', '15-010062-0', '15-010062-0', 'Siberius Informática Ltda', 'Siberius Informática Ltda', '91981551702', 1, true, 1, null, now(), null, 'wnbaldez@gmail.com', 'www.devoffice.com.br', 'Baldez', '91981715951',1);
 
 INSERT INTO public.tb_empresas
-(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_reponsavel, telefone_responsavel, area_interesse_id)
+(id, categoria, cnpj, insc_estadual, insc_municipal, nome_fantasia, razao_social, telefone, endereco_id,ativo, codigo_usuario_criacao, codigo_usuario_modificacao, criacao, modificacao, email_responsavel, homepage, nome_responsavel, telefone_responsavel, area_interesse_id)
 VALUES(3, 'Tecnologia2', '56.157.473/0001-52', '15-010062-1', '15-010062-1', 'Siberius2 Informática Ltda', 'Siberius2 Informática Ltda', '91981551702', 1, true, 1, null, now(), null, 'wnbaldez@gmail.com', 'www.devoffice.com.br', 'Baldez', '91981715951',1);
 
 INSERT INTO public.tb_usuarios
