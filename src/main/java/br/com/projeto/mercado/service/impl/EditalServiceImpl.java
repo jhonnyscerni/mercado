@@ -61,9 +61,11 @@ public class EditalServiceImpl implements EditalService {
         editalRequest.setEndereco(empresa.getEndereco());
 
         Edital edital = editalMapper.resquestToEntity(editalRequest);
+        edital.geradorNumeroEdital();
         edital = editalRepository.save(edital);
         log.debug("POST save editalID saved {} ", edital.getId());
         log.info("User saved successfully editalID {} ", edital.getId());
+        log.info("numberEdital {} ", edital.getNumero());
 
         return editalMapper.toResponse(edital);
     }

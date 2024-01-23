@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,5 +71,9 @@ public class Edital extends Base implements Serializable {
 
     //TODO. criar parametro para definição de critério de vencedor
     //private CriterioVencedor criterioVencedor
+
+    public void geradorNumeroEdital(){
+        this.setNumero(Calendar.getInstance().getTime().getTime());
+     }
 
 }
