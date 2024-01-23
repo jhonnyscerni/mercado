@@ -13,7 +13,7 @@ create sequence seq_produto start 1 increment 1;
 create sequence seq_regiao start 1 increment 1;
 create sequence seq_unidade_medida start 1 increment 1;
 create sequence seq_usuario start 1 increment 1;
-create table area_interesse (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, descricao varchar(60) not null, nome varchar(255) not null, primary key (id));
+create table area_interesse (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, descricao varchar(60) not null, nome varchar(255) not null, empresa_id int8 not null, primary key (id));
 create table categoria_produto (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, nome_desc varchar(255) not null, primary key (id));
 create table edital (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, data_exibe timestamp, data_fim timestamp, data_inicio timestamp, numero int8 not null, tempo_maximo_entrega int8, titulo varchar(255), empresa_id int8 not null, endereco_id int8 not null, primary key (id));
 create table edital_arquivo (ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, content_type varchar(255), descricao varchar(255), nome_arquivo varchar(255), tamanho int8, edital_id int8 not null, primary key (edital_id));
@@ -25,7 +25,7 @@ create table leilao (id int8 not null, ativo boolean not null, codigo_usuario_cr
 create table marca_produto (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, nome_desc varchar(255) not null, primary key (id));
 create table produto (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, codigo_externo varchar(255) not null, descricao text not null, nome varchar(255) not null, categoria_produto_id int8 not null, empresa_id int8 not null, marca_produto_id int8 not null, primary key (id));
 create table regiao (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, descricao varchar(255), nome varchar(255) not null, edital_id int8 not null, primary key (id));
-create table tb_empresas (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, categoria varchar(255), cnpj varchar(255) not null, email_responsavel varchar(255), homepage varchar(255), insc_estadual varchar(255) not null, insc_municipal varchar(255), nome_fantasia varchar(50) not null, nome_responsavel varchar(255), razao_social varchar(255) not null, telefone varchar(255), telefone_responsavel varchar(255), area_interesse_id int8, endereco_id int8, primary key (id));
+create table tb_empresas (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, categoria varchar(255), cnpj varchar(255) not null, email_responsavel varchar(255), homepage varchar(255), insc_estadual varchar(255) not null, insc_municipal varchar(255), nome_fantasia varchar(50) not null, nome_responsavel varchar(255), razao_social varchar(255) not null, telefone varchar(255), telefone_responsavel varchar(255), endereco_id int8, primary key (id));
 create table tb_grupos (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, nome varchar(30) not null, primary key (id));
 create table tb_usuarios (id int8 not null, ativo boolean not null, codigo_usuario_criacao int8, codigo_usuario_modificacao int8, criacao timestamp not null, modificacao timestamp, cpf varchar(255), email varchar(255) not null, nome varchar(255), password varchar(255) not null, status_usuario varchar(255), telefone varchar(255), tipo_usuario varchar(255), username varchar(255), empresa_id int8 not null, primary key (id));
 create table tb_usuarios_grupos (usuario_id int8 not null, grupo_id int8 not null, primary key (usuario_id, grupo_id));
@@ -33,6 +33,7 @@ create table unidade_medida (id int8 not null, ativo boolean not null, codigo_us
 alter table tb_empresas add constraint UK_9ubgjwwk9fig4j9rcdnhq3nea unique (nome_fantasia);
 alter table tb_empresas add constraint UK_ox5970btpxvjcv8ru8y4072bd unique (razao_social);
 alter table tb_grupos add constraint UK_p7q0fq0sermy36uhhvqcop173 unique (nome);
+alter table area_interesse add constraint empresa_fk foreign key (empresa_id) references tb_empresas;
 alter table edital add constraint empresa_id_fk foreign key (empresa_id) references tb_empresas;
 alter table edital add constraint endereco_id_fk foreign key (endereco_id) references endereco;
 alter table edital_arquivo add constraint FKfetem3n27c69nhxec71g8mlng foreign key (edital_id) references edital;
@@ -48,7 +49,6 @@ alter table produto add constraint categoria_produto_id_fk foreign key (categori
 alter table produto add constraint empresa_id_fk foreign key (empresa_id) references tb_empresas;
 alter table produto add constraint marca_produto_id_fk foreign key (marca_produto_id) references marca_produto;
 alter table regiao add constraint FKqr67oupsv955do9qqv833sk90 foreign key (edital_id) references edital;
-alter table tb_empresas add constraint area_interesse_id_fk foreign key (area_interesse_id) references area_interesse;
 alter table tb_empresas add constraint endereco_id_fk foreign key (endereco_id) references endereco;
 alter table tb_usuarios add constraint empresa_fk foreign key (empresa_id) references tb_empresas;
 alter table tb_usuarios_grupos add constraint FKfibqpkrm4y3jn1tbk4vyg06o8 foreign key (grupo_id) references tb_grupos;

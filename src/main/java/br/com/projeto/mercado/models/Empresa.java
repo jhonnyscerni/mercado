@@ -6,9 +6,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -54,10 +52,8 @@ public class Empresa extends Base{
 
     private String homepage;
 
-    @ManyToOne(targetEntity = AreaInteresse.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "area_interesse_id",
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "area_interesse_id_fk"))
-    private Set<AreaInteresse> areaInteresses = new HashSet<>();
+    @OneToMany(mappedBy = "empresa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AreaInteresse> areaInteresses = new ArrayList<AreaInteresse>();
 
     @OneToMany(mappedBy = "empresa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Usuario> usuarios = new ArrayList<Usuario>();
