@@ -28,4 +28,8 @@ public class UsuarioRequest {
 
     Set<Grupo> grupos = new HashSet<>();
 
+    private String nome;
+
+    private String cpf;
+
 }
