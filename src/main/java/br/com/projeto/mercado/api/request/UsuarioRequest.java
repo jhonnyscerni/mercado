@@ -12,6 +12,10 @@ import java.util.Set;
 @Data
 public class UsuarioRequest {
 
+    private String nome;
+
+    private String cpf;
+
     private String username;
 
     private String email;
@@ -27,9 +31,5 @@ public class UsuarioRequest {
     private Empresa empresa;
 
     Set<Grupo> grupos = new HashSet<>();
-
-    private String nome;
-
-    private String cpf;
 
 }

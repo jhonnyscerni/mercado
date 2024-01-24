@@ -20,7 +20,7 @@ curl --location --request POST 'http://localhost:8080/mercado/auth/signup?tipoUs
 "inscEstadual":"123123",
 "inscMunicipal":"123123",
 "categoria":"",
-"email":"jhonscerni@gmail.com",
+"emailResponsavel":"jhonscerni@gmail.com",
 "telefone":"(12) 3131-2312",
 "endereco":{
 "cep":"66615-005",
@@ -33,7 +33,6 @@ curl --location --request POST 'http://localhost:8080/mercado/auth/signup?tipoUs
 }
 }
 }'
-
 
 ### Usuarios
 

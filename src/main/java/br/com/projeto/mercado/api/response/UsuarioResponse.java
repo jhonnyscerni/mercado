@@ -11,11 +11,11 @@ import java.util.Set;
 @Data
 public class UsuarioResponse {
 
+    private Long id;
+
     private String nome;
 
     private String cpf;
-
-    private Long id;
 
     private String username;
 
