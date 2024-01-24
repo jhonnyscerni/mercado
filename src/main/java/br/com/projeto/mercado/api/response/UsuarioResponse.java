@@ -6,12 +6,14 @@ import br.com.projeto.mercado.models.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Data
 public class UsuarioResponse {
+
+    private String nome;
+
+    private String cpf;
 
     private Long id;
 
@@ -31,9 +33,5 @@ public class UsuarioResponse {
     private EmpresaResponse empresa;
 
     private Set<GrupoResponse> grupos;
-
-    private String nome;
-
-    private String cpf;
 
 }

@@ -6,6 +6,8 @@ curl --location --request POST 'http://localhost:8080/mercado/auth/signup?tipoUs
 --header 'Content-Type: application/json' \
 --data-raw '{
 "id":"",
+"nome":"Jhonny Scerni",
+"cpf": "98473891287",
 "username":"test",
 "email":"jhonscerni@gmail.com",
 "telefone":"(12) 31231-2312",
