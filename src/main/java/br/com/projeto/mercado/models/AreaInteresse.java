@@ -1,5 +1,6 @@
 package br.com.projeto.mercado.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,5 +29,10 @@ public class AreaInteresse extends Base implements Serializable {
 
     @Column(nullable = false, length = 60)
     private String descricao;
+
+    @JsonIgnore
+    @ManyToOne(targetEntity = Empresa.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Empresa empresa;
 
 }

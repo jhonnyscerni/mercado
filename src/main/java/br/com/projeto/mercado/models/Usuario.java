@@ -4,6 +4,7 @@ import br.com.projeto.mercado.models.enums.StatusUsuario;
 import br.com.projeto.mercado.models.enums.TipoUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -25,6 +26,11 @@ public class Usuario extends Base{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
     @EqualsAndHashCode.Include
     private Long id;
+
+    private String nome;
+
+    @CPF
+    private String cpf;
 
     private String username;
 
