@@ -113,4 +113,6 @@ Caso queira fazer Build e deploy da aplicação :
 
 
 ![ecs.png](src%2Fmain%2Fresources%2Fimages%2Fecs.png)
+
+https://www.youtube.com/watch?v=OMn866JBEtQ
 --------------------------------------------------------------------------------------------------------------------
