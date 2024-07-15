@@ -1,5 +1,16 @@
-FROM eclipse-temurin:17-jdk-alpine
+#
+# Build stage
+#
+FROM maven:3.8.3-openjdk-17 AS build
 WORKDIR /app
-COPY target/mercado-0.0.1-SNAPSHOT.jar mercado.jar
+COPY . /app/
+RUN mvn clean package
+
+#
+# Package stage
+#
+FROM openjdk:17-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 8080
-CMD ["java","-jar","mercado.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
